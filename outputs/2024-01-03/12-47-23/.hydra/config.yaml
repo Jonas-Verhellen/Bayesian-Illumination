@@ -1,0 +1,36 @@
+data_file: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
+batch_size: 40
+initial_size: 100
+workers: 1
+threads: 2
+generations: 75
+archive:
+  name: thiotixene
+  size: 150
+  accuracy: 25000
+descriptor:
+  properties:
+  - Descriptors.ExactMolWt
+  - Descriptors.MolLogP
+  - Descriptors.TPSA
+  - Crippen.MolMR
+  ranges:
+  - - 225
+    - 555
+  - - -0.5
+    - 5.5
+  - - 0
+    - 140
+  - - 40
+    - 130
+fitness:
+  type: USRCAT
+  target: O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4
+  conformers: 15
+arbiter:
+  rules:
+  - Glaxo
+mutator:
+  data_file: data/smarts/mutation_collection.tsv
+surrogate:
+  type: ECFP6
