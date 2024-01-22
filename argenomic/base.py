@@ -19,7 +19,6 @@ class Molecule:
     pedigree: Tuple[str, str ,str] 
     fitness: float = None
     niche_index: int = None
-    fingerprint: List[int] = None
     descriptor: List[float] = None
     predicted_fitness: int = None
     predicted_uncertainty: int = None

@@ -33,4 +33,8 @@ arbiter:
 mutator:
   data_file: data/smarts/mutation_collection.tsv
 surrogate:
-  type: ECFP6
+  type: Fingerprint
+  representation: ECFP6
+acquisition: 
+  type: logEI
+  

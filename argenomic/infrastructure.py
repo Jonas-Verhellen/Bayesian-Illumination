@@ -86,7 +86,6 @@ class Archive:
         sample_pairs = np.random.choice(list(filter(None, sample_molecules)), size=(size, 2), replace=True)
         sample_pairs = [tuple(sample_pair) for sample_pair in sample_pairs]       
         return sample_pairs
-
     
 class Printer:
     """
@@ -150,10 +149,12 @@ class Printer:
         """
         if os.path.isfile('statistics.csv'):
             with open('statistics.csv', 'a') as file:
-                csv.writer(file).writerow([generation] + list(statistics) + [function_calls])
+                csv.writer(file).writerow([generation] + [statistics["max_fitness"], statistics["mean_fitness"], statistics["quality_diversity_score"], statistics["coverage"] * 100] + [function_calls])
                 file.close()
         else:
             with open('statistics.csv', 'w') as file:
+                csv.writer(file).writerow(["generation"] + ["maximum fitness"] + ["mean fitness"] + ["quality diversity score"] + ["coverage"] + ["function calls"])
+                csv.writer(file).writerow([generation] + [statistics["max_fitness"], statistics["mean_fitness"], statistics["quality_diversity_score"], statistics["coverage"] * 100] + [function_calls])
                 file.close()
         return None
     
