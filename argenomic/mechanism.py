@@ -11,7 +11,7 @@ from rdkit.Chem import Crippen
 from rdkit.Chem import Lipinski
 from rdkit.Chem import Descriptors
 
-from argenomic.functions.surrogate import Smiles_Surrogate, Fingerprint_Surrogate
+from argenomic.functions.surrogate import String_Surrogate, Fingerprint_Surrogate
 from argenomic.functions.fitness import Fingerprint_Fitness, USRCAT_Fitness, Zernike_Fitness
 from argenomic.functions.acquisition import Posterior_Mean, Upper_Confidence_Bound, Expected_Improvement, Log_Expected_Improvement
 
@@ -27,6 +27,7 @@ class Descriptor:
             module, function = name.split(".")
             module = getattr(sys.modules[__name__], module)
             self.properties.append(getattr(module, function))
+        self.dimensionality = len(self.property_names)
         return None
 
     def __call__(self, molecule) -> None:
@@ -70,8 +71,8 @@ class Surrogate:
         """
 
         match config.type:
-            case "Smiles":
-                return Smiles_Surrogate(config)
+            case "String":
+                return String_Surrogate(config)
             case "Fingerprint":
                 return Fingerprint_Surrogate(config)
             case _:
@@ -117,12 +118,11 @@ class Acquisition:
     __new__: Static method for creating and returning an instance of a specific acquisition function based on the configuration.
     """
     @staticmethod
-    def __new__(self, archive, config):
+    def __new__(self, config):
         """
         Static method for creating and returning an instance of a specific acquisition function based on the configuration.
 
         Parameters:
-        - archive: An object providing access to the archive of elite molecules.
         - config: An object specifying the configuration for the acquisition function, including the type.
 
         Returns:
@@ -131,12 +131,12 @@ class Acquisition:
         
         match config.type:
             case 'Mean':
-                return Posterior_Mean(archive, config)
+                return Posterior_Mean(config)
             case 'UCB':
-                return Upper_Confidence_Bound(archive, config)
+                return Upper_Confidence_Bound(config)
             case 'EI':
-                return Expected_Improvement(archive, config)
+                return Expected_Improvement(config)
             case 'logEI':
-                return Log_Expected_Improvement(archive, config)
+                return Log_Expected_Improvement(config)
             case _:
                 raise ValueError(f"{config.type} is not a supported acquisition function type.")

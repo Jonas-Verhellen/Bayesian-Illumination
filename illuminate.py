@@ -1,63 +1,83 @@
 import hydra
-import torch
-import numpy as np
-import pandas as pd
-from typing import List
-
+import logging
 from rdkit import Chem
-from rdkit.Chem.rdFingerprintGenerator import GetMorganGenerator
+from typing import List
+from omegaconf import OmegaConf
 
 from argenomic.base import Molecule
-from argenomic.operations import Mutator, Crossover
-from argenomic.infrastructure import Arbiter, Archive, Printer
+from argenomic.operations import Generator
+from argenomic.infrastructure import Arbiter, Archive, Controller
 from argenomic.mechanism import Fitness, Descriptor, Surrogate, Acquisition
 
-from itertools import groupby
+from cProfile import Profile
+from pstats import SortKey, Stats
+
 
 class Illuminate:
     def __init__(self, config) -> None:
-        self.data_file = config.data_file
-        self.batch_size = config.batch_size
-        self.initial_size = config.initial_size
-
         self.arbiter = Arbiter(config.arbiter)
         self.fitness = Fitness(config.fitness)
-        self.mutator = Mutator(config.mutator)
-        self.crossover = Crossover()
-
+        self.generator = Generator(config.generator)
         self.descriptor = Descriptor(config.descriptor)
-        self.archive = Archive(config.archive, config.descriptor)
+
         self.surrogate = Surrogate(config.surrogate)
+        self.acquisition = Acquisition(config.acquisition)
+        self.controller = Controller(config.controller)
 
-        self.printer = Printer(self.archive)
-        self.acquisition = Acquisition(self.archive, config.acquisition)
+        self.archive = Archive(config.archive, self.descriptor.dimensionality)
 
-        self.generations = 0
-        self.fitness_calls = 0
-        self.max_generations = config.max_generations
-        self.max_fitness_calls = config.max_fitness_calls
+        self.generator.set_archive(self.archive)
+        self.controller.set_archive(self.archive)
+        self.acquisition.set_archive(self.archive)
         return None
 
     def __call__(self) -> None:
         self.self_similiarity()
         self.initial_population()
-        while self.generations <= self.max_generations and self.fitness_calls <= self.max_fitness_calls:
-            molecules = self.generate_molecules()
+        while self.controller.active():
+            molecules = self.generator()
             molecules = self.process_molecules(molecules)
             self.archive.add_to_archive(molecules)
-            self.printer(self.generations, self.fitness_calls)
-            self.surrogate.update_model(molecules)
-            self.generations = self.generations + 1
+            self.surrogate.add_to_prior_data(molecules)
+            self.controller.update()
+        self.controller.store_molecules()
         return None
 
-    def initial_population(self) -> None:
-        molecules = self.arbiter(self.load_from_database())
+    def process_molecules(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = self.arbiter(molecules)
         molecules = self.calculate_descriptors(molecules)
-        molecules = self.calculate_fingerprints(molecules)
+        molecules = self.apply_acquisition(molecules)
+        molecules = self.calculate_fitnesses(molecules)
+        return molecules
+        
+    def calculate_descriptors(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = [self.descriptor(molecule) for molecule in molecules]
+        molecules = [molecule for molecule in molecules if all(1.0 > property > 0.0 for property in molecule.descriptor)]
+        molecules = [self.archive.update_niche_index(molecule) for molecule in molecules]
+        return molecules
+    
+    def calculate_fitnesses(self, molecules: List[Molecule]) -> List[Molecule]:
+        if self.controller.remaining_fitness_calls >= len(molecules):
+            molecules = [self.fitness(molecule) for molecule in molecules]
+        else:
+            molecules = molecules[:self.controller.remaining_fitness_calls]
+            molecules = [self.fitness(molecule) for molecule in molecules]
+        self.controller.add_fitness_calls(len(molecules))
+        return molecules
+
+    def apply_acquisition(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = self.surrogate(molecules)
+        molecules = self.acquisition(molecules)
+        return molecules
+                
+    def initial_population(self) -> None:
+        molecules = self.generator.load_from_database()
+        molecules = self.arbiter(molecules)
+        molecules = self.calculate_descriptors(molecules)
         molecules = self.calculate_fitnesses(molecules)
         self.archive.add_to_archive(molecules)
-        self.printer(self.generations, self.fitness_calls)
-        self.surrogate.intitialise_model(molecules)
+        self.surrogate.add_to_prior_data(molecules)
+        self.controller.update()
         return None
     
     def self_similiarity(self) -> None:
@@ -66,73 +86,16 @@ class Illuminate:
         print(f"Self similarity: {self_similiarity}")
         return None
 
-    def load_from_database(self) -> List[Molecule]:
-        dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.data_file))
-        smiles_list = dataframe['smiles'].sample(n=self.initial_size).tolist()
-        pedigree = ("database", "no reaction", "database")   
-        molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
-        return molecules
-
-    def generate_molecules(self) -> List[Molecule]:
-        molecules = []
-        molecule_samples = self.archive.sample(self.batch_size)
-        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size)
-        for molecule in molecule_samples:
-            molecules.extend(self.mutator(molecule)) 
-        for molecule_pair in molecule_sample_pairs:
-            molecules.extend(self.crossover(molecule_pair)) 
-        return molecules
-
-    def process_molecules(self, molecules: List[Molecule]) -> List[Molecule]:
-        molecules = self.arbiter(molecules)
-        molecules = self.calculate_descriptors(molecules)
-        molecules = self.calculate_fingerprints(molecules)
-        molecules = self.apply_acquisition_function(molecules)
-        molecules = self.calculate_fitnesses(molecules)
-        return molecules
-    
-    def calculate_fingerprints(self, molecules: List[Molecule]) -> List[Molecule]:
-        fp_generator = GetMorganGenerator(radius=3, fpSize=2048)
-        for molecule in molecules:
-            molecular_graph = Chem.MolFromSmiles(Chem.CanonSmiles(molecule.smiles))
-            molecule.fingerprint = np.array(fp_generator.GetFingerprint(molecular_graph))
-        return molecules
-    
-    def calculate_descriptors(self, molecules: List[Molecule]) -> List[Molecule]:
-        molecules = [self.descriptor(molecule) for molecule in molecules]
-        molecules = [molecule for molecule in molecules if all(1.0 > property > 0.0 for property in molecule.descriptor)]
-        return molecules
-    
-    def apply_acquisition_function(self, molecules: List[Molecule]) -> List[Molecule]:
-        molecules = self.surrogate(molecules)
-        molecules = self.acquisition(molecules)
-        molecules = self.molecule_selection(molecules)
-        return molecules
-                
-    @staticmethod
-    def molecule_selection(molecules: List[Molecule]) -> List[Molecule]:
-        molecules.sort(key = lambda molecule: molecule.niche_index)
-        grouped_molecules = {index: list(molecule_group) for index, molecule_group in groupby(molecules, key = lambda molecule: molecule.niche_index)}
-        molecules = [max(molecule_group, key = lambda molecule: molecule.acquisition_value) for molecule_group in grouped_molecules.values()]
-        return molecules
-
-    def calculate_fitnesses(self, molecules: List[Molecule]) -> List[Molecule]:
-        remaining_fitness_calls = self.max_fitness_calls - self.fitness_calls
-        if remaining_fitness_calls >= len(molecules):
-            molecules = [self.fitness(molecule) for molecule in molecules]
-            self.fitness_calls += len(molecules)        
-        else:
-            molecules = molecules[:remaining_fitness_calls]
-            molecules = [self.fitness(molecule) for molecule in molecules]
-            self.fitness_calls += len(molecules) 
-        return molecules
-    
 @hydra.main(config_path="configuration", config_name="config.yaml")
 def launch(config) -> None:
-    print(config)
+    log = logging.getLogger(__name__)
+    log.info(OmegaConf.to_yaml(config))
     current_instance = Illuminate(config)
     current_instance()
-    current_instance.client.close()
+
 
 if __name__ == "__main__":
     launch()
+
+
+

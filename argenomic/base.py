@@ -13,7 +13,7 @@ class Elite:
             self.fitness = molecule.fitness
         return None
 
-@dataclass
+@dataclass()
 class Molecule:
     smiles: str
     pedigree: Tuple[str, str ,str] 

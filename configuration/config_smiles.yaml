@@ -1,6 +1,6 @@
 ---
 controller:
-  max_generations: 10
+  max_generations: 300
   max_fitness_calls: 10000
 archive:
   name: Troglitazone
@@ -22,10 +22,9 @@ descriptor:
   - - 40
     - 130
 fitness:
-  type: USRCAT
+  type: Fingerprint
   target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
-  conformers: 30
-  numThreads: 6
+  representation: ECFP4
 arbiter:
   rules:
   - Glaxo
@@ -40,5 +39,4 @@ surrogate:
   max_ngram: 5
 acquisition: 
   type: logEI
-  
   

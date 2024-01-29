@@ -13,13 +13,47 @@ from rdkit.Chem import AllChem
 from rdkit.Chem import rdMMPA
 
 from argenomic.base import Molecule
-   
+
+
+class Generator:
+    """
+    A catalog class containing and implementing mutations to small molecules according to the principles of positional analogue scanning. 
+    """
+    def __init__(self, config) -> None:
+        self.archive = None
+        self.crossover = Crossover()
+        self.mutator = Mutator(config.mutation_data)
+        self.batch_size = config.batch_size
+        self.initial_data = config.initial_data
+        self.initial_size = config.initial_size
+
+    def set_archive(self, archive):
+        self.archive = archive
+        return None
+
+    def __call__(self) -> List[Molecule]:
+        molecules = []
+        molecule_samples = self.archive.sample(self.batch_size)
+        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size)
+        for molecule in molecule_samples:
+            molecules.extend(self.mutator(molecule)) 
+        for molecule_pair in molecule_sample_pairs:
+            molecules.extend(self.crossover(molecule_pair)) 
+        return molecules
+
+    def load_from_database(self) -> List[Molecule]:
+        dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.initial_data))
+        smiles_list = dataframe['smiles'].sample(n=self.initial_size).tolist()
+        pedigree = ("database", "no reaction", "database")   
+        molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
+        return molecules
+
 class Mutator:
     """
     A catalog class containing and implementing mutations to small molecules according to the principles of positional analogue scanning. 
     """
-    def __init__(self, config_mutator) -> None:
-        self.mutation_data = pd.read_csv(hydra.utils.to_absolute_path(config_mutator.data_file), sep='\t')
+    def __init__(self, mutation_data) -> None:
+        self.mutation_data = pd.read_csv(hydra.utils.to_absolute_path(mutation_data), sep='\t')
 
     def __call__(self, molecule) -> List[Molecule]:
         sampled_mutation = self.mutation_data.sample(n=1, weights='probability').iloc[0]

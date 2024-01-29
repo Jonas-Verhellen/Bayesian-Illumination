@@ -1,9 +1,7 @@
 ---
-data_file: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
-batch_size: 40
-initial_size: 40
-max_generations: 300
-max_fitness_calls: 10000
+controller:
+  max_generations: 300
+  max_fitness_calls: 3000
 archive:
   name: Troglitazone
   size: 150
@@ -30,8 +28,11 @@ fitness:
 arbiter:
   rules:
   - Glaxo
-mutator:
-  data_file: data/smarts/mutation_collection.tsv
+generator:
+  batch_size: 40
+  initial_size: 40
+  mutation_data: data/smarts/mutation_collection.tsv
+  initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
 surrogate:
   type: Fingerprint
   representation: ECFP6

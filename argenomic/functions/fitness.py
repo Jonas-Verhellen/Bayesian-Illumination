@@ -1,5 +1,7 @@
 import math
+import hydra
 import numpy as np
+import time
 
 from rdkit import Chem
 from rdkit import rdBase
@@ -13,13 +15,12 @@ from rdkit import Chem
 from rdkit.Chem import rdDistGeom
 from rdkit.Chem.rdMolDescriptors import GetUSRScore, GetUSRCAT, GetUSR
 
-from scipy.spatial.distance import braycurtis
-
 from rdkit.Chem import rdDistGeom
 from rdkit.Chem import AllChem
 
 from numba import complex128, float64
 from numba.experimental import jitclass
+from scipy.spatial import distance
 
 class Fingerprint_Fitness:
     """
@@ -96,7 +97,7 @@ class USRCAT_Fitness:
         self.n_conformers = config.conformers
         self.param = rdDistGeom.ETKDGv3()
         self.param.randomSeed=0xfb0d
-        # self.param.numThreads = 4
+        self.param.numThreads = config.numThreads
         self.target = Chem.AddHs(Chem.MolFromSmiles(Chem.CanonSmiles(config.target)))
         self.target_configuration = AllChem.EmbedMultipleConfs(self.target, 1, self.param)
         self.target_usrcat = GetUSRCAT(self.target)
@@ -126,11 +127,14 @@ class Zernike_Fitness:
         self.param = rdDistGeom.ETKDGv3()
         self.param.randomSeed=0xfb0d
         self.n_conformers = config.conformers
-        self.target = Chem.AddHs(Chem.MolFromSmiles(Chem.CanonSmiles(config.target)))
-        self.Yljm = np.load("Argenomic-GP/data/coefficients/Yljm.npy")
-        self.Qklnu = np.load("Argenomic-GP/data/coefficients/Qklnu.npy") 
+        self.param.numThreads = config.numThreads
+        self.Yljm = np.load(hydra.utils.to_absolute_path("data/coefficients/Yljm.npy"))
+        self.Qklnu = np.load(hydra.utils.to_absolute_path("data/coefficients/Qklnu.npy")) 
         self.engine = Zernike_JIT(self.Qklnu, self.Yljm)
-        self.target_zernike = self.get_zernike(self.target)
+
+        self.target = Chem.AddHs(Chem.MolFromSmiles(Chem.CanonSmiles(config.target)))
+        AllChem.EmbedMultipleConfs(self.target, 1, self.param)
+        self.target_zernike = self.get_zernike(self.target, conf_id=0)
 
     def coordinate_extractor(self, molecule, confid=-1):
         x_points, y_points, z_points = [], [], []
@@ -154,7 +158,7 @@ class Zernike_Fitness:
         molecular_graph = Chem.AddHs(Chem.MolFromSmiles(Chem.CanonSmiles(molecule.smiles)))
         conf_ids = AllChem.EmbedMultipleConfs(molecular_graph, self.n_conformers, self.param)
         zernikes = [self.get_zernike(molecular_graph, conf_id) for conf_id in conf_ids]
-        scores = [1. / (1 + braycurtis(zernike, self.target)) for zernike in zernikes]
+        scores = [1. / (1 + distance.canberra(zernike, self.target_zernike)) for zernike in zernikes]
         molecule.fitness = np.max(scores)
         return molecule
     
@@ -175,14 +179,13 @@ class Zernike_Fitness:
     def unsigned_invariants(self, coordinates, features, N):
         x_points, y_points, z_points = map(list, list(zip(*coordinates)))
         lengths = [len(features), len(x_points), len(y_points), len(z_points)]
-        assert any(length== lengths[0] for length in lengths), f"length of the inputs differs, got: {lengths}"
         x_points = x_points - np.mean(x_points)
         y_points = y_points - np.mean(y_points)
         z_points = z_points - np.mean(z_points)
         features = np.array(features)
         geometric_moments = self.engine.geometric_moments(features, x_points, y_points, z_points, N)
         invariants = self.engine.zernike_invariants(geometric_moments, N)
-        return invariants
+        return np.real(invariants)
         
 spec = [('prefactor', float64), ('Qklnu', complex128[:,:,:]), ('Yljm', complex128[:,:,:])]
 @jitclass(spec)

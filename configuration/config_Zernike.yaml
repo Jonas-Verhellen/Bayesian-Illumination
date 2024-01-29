@@ -22,8 +22,9 @@ descriptor:
   - - 40
     - 130
 fitness:
-  type: USRCAT
+  type: Zernike
   target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
+  expansion: 20
   conformers: 30
   numThreads: 6
 arbiter:
@@ -35,10 +36,8 @@ generator:
   mutation_data: data/smarts/mutation_collection.tsv
   initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
 surrogate:
-  type: String
-  representation: Selfies
-  max_ngram: 5
+  type: Fingerprint
+  representation: ECFP6
 acquisition: 
   type: logEI
-  
-  
+
