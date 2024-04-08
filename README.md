@@ -6,7 +6,7 @@
 
 <p align="left">
   <a href="[https://github.com/Jonas-Verhellen/Bayesian-Illumination]">
-    <img src="imgs/GB-BI-Banner.png" width="100%" />
+    <img src="imgs/GB-BI-banner.png" width="100%" />
   </a>
 </p>
 
