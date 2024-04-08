@@ -29,7 +29,7 @@ Standard quality-diversity (QD) and Bayesian optimisation (BO) libraries do not 
 * **GB-EPI:** a quality-diversity software package for the optimisation of small molecules which enforces diversity in chemical space by creating niches based on physicochemical properties.
 * **GAUCHE:** a Gaussian process framework for chemistry, providing more than 30 bespoke kernels for small molecules, proteins and chemical reactions.
 
-For the mutatations, crossovers, structural filters and physicochemical descriptors, we rely on RDKit. The structural filters are based on the scripts provided by Patrick Walters. The mutations and crossovers are inspired by the Graph-Based Genetic Algorithm (GB-GA) by Jan H. Jensen. Ideas regarding the application of acquisition functions and Bayesian optimsation to quality-diversity methods (and MAP-Elites specifically) were spurred on by the publication of the BOP-Elites algorithm.
+For the mutatations, crossovers, structural filters and physicochemical descriptors, we rely on RDKit. The structural filters are based on scripts provided by Patrick Walters. The mutations and crossovers are inspired by the Graph-Based Genetic Algorithm (GB-GA) by Jan H. Jensen. Ideas regarding the application of acquisition functions and Bayesian optimsation to quality-diversity methods (and MAP-Elites specifically) were spurred on by the publication of the BOP-Elites algorithm.
 
 ### Fitness Functions
 
