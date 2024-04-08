@@ -10,7 +10,7 @@
   </a>
 </p>
 
-**Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase for combining quality-diversity with Bayesian optimisation techniques for small molecules.
+**Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase for combining quality-diversity with Bayesian optimisation techniques for small molecules.
 
 [Overview](#overview) | [Getting Started](#getting-started) | [Documentation](https://github.com/Jonas-Verhellen/Bayesian-Illumination) | [Paper](https://arxiv.org) | [Benchmarks](https://github.com/Jonas-Verhellen/Bayesian-Illumination)
 
