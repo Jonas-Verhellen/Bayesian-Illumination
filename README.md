@@ -33,6 +33,10 @@ For the mutatations, crossovers, structural filters and physicochemical descript
 
 ### Fitness Functions
 
+* **Fingerprint-Based Rediscovery:** 
+* **Descriptor-Based Rediscovery:** 
+* **SAS-Modulated Docking Scores:** 
+
 ### Molecular Representations
 
 GB-BI supports several molecular representation that are based on bit vectors or strings. These representations are used for the surrogate models using the Tanimoto kernel from GAUCHE. The string-based representations are turned into a bag-of-characters before being used in the kernel. Note that several of these vectors representations are currently not natively supported by GAUCHE. 
@@ -84,12 +88,10 @@ Acquisition functions are heuristics employed to evaluate the potential of candi
 * **Upper Confidence Bound (UCB):** The upper confidence bound balances exploration and exploitation based on a confidence boundary derived from the surrogate fitness model. The upper confidence bound is defined as $\text{UCB}(x) = \mu(x) + \beta \sigma(x)$, where $\mu(\cdot)$ and $\sigma(\cdot)$ are respectively the posterior mean and variance of the surrogate fitness model, $x$ denotes the candidate solution, and  $\beta$ is a hyperparameter representing confidence in the surrogate model.
 * **Expected Improvement (EI):** The expected improvement considers both the probability of improving on the current solutions and the magnitude of the predicted improvement. The expected improvement is defined as $\text{EI}(x) = \sigma(x) \ h\left((\mu(x) - y)/\sigma(x)\right)$, where $x$ denotes the candidate solution, $\mu(\cdot)$ and $\sigma(\cdot)$ are respectively the posterior mean and variance of the surrogate fitness model, and $y$ is the best fitness function value observed so far. In the above equation, the helper function $h(\cdot)$ is defined as $h(z) = \phi(z) + z \Phi(z)$ where $\phi$ and $\Phi$ are respectively the probability density function and the cumulative density function of the Normal distribution.
 * **Numerically Stable log(EI) (logEI):** A numerically stable variant of the logarithm of the expected improvement (logEI), which was was recently introduced to alleviate the vanishing gradient problems sometimes encountered in the classical version of EI and is defined as $\text{logEI}(x) = \text{log}_h\left((\mu(x) - y)/\sigma(x)\right) + \text{log}(\sigma(x))$ in which the helper function $\text{log}_h(\cdot)$ is a numerical stable implementation of the composite function $\log (h)$.
-
   
 ### Extensions
 
-If there are any specific acquisition functions or molecular representations that you would like to see included in GB-BI, please open an issue or submit a pull request.
-
+If there are any specific fitness functions, molecular representations or acquisition functions that you would like to see included in GB-BI, please open an issue or submit a pull request. More information on how to adapt and extend GB-BI can be found here.
 
 ## Getting Started
 
