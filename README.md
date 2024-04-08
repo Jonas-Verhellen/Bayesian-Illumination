@@ -1,1 +1,1 @@
-# Argenomic-GP
+# Graph-Based Bayesian-Illumination
