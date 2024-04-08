@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/github/license/daq-tools/wireviz-web)](https://opensource.org/license/agpl-v3)
 
 
-<p align="left">
+<p align="center">
   <a href="[https://github.com/Jonas-Verhellen/Bayesian-Illumination]">
     <img src="imgs/GB-BI-banner-min.png" width="100%" />
   </a>
