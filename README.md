@@ -93,4 +93,4 @@ If there are any specific acquisition functions or molecular representations tha
 
 ## Getting Started
 
-The easiest way to use GB-BI Gauche is to clone this repository and install the included conda environment. 
+The easiest way to use GB-BI is to clone this repository and install the included conda environment. 
