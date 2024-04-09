@@ -1,14 +1,13 @@
 # Graph-Based Bayesian Illumination (GB-BI)
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![License: MIT](https://img.shields.io/github/license/daq-tools/wireviz-web)](https://opensource.org/license/agpl-v3)
-
-
 <p align="center">
   <a href="[https://github.com/Jonas-Verhellen/Bayesian-Illumination]">
     <img src="imgs/GB-BI-banner-min.png" width="100%" />
   </a>
 </p>
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![License: MIT](https://img.shields.io/github/license/daq-tools/wireviz-web)](https://opensource.org/license/agpl-v3)
 
 **Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase, novel benchmarks, and extensive documentation.
 
@@ -33,10 +32,12 @@ For the mutatations, crossovers, structural filters and physicochemical descript
 
 ### Fitness Functions
 
-* **Fingerprint-Based Rediscovery:** 
-* **Descriptor-Based Rediscovery:** 
-* **SAS-Modulated Docking Scores:** 
+GB-BI provides three classes of fitness functions out-of-the-box: fingerprint-based rediscovery, descriptor-based rediscovery, and SAS-modulated docking scores. These fitness functions can and have been used as benchmark tools to probe the effciency of generative models but also have direct practical applications. Additional fitness functions can easily be added to the codebase.
 
+* **Fingerprint-Based Rediscovery:** A lightweight task focused on molecule rediscovery where the fitness of a generated molecule is assessed using the Tanimoto similarity between the generated molecule and the target molecule, based on their respective extended-connectivity fingerprints. Implementation based on Gaucamol. 
+* **Descriptor-Based Rediscovery:**  An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is assessed using the conformer-aggregated similarity between the generated molecule and the target molecule, based on their respective descriptors (USRCAT or Zernike). 
+* **SAS-Modulated Docking Scores:** A computationally intensive task, utilising docking methods which evaluate the theoretical affinity between a small molecule and a target protein. To avoid pure exploitation of the docking method, the scores are modulated by the synthetic accesibility of the small molecule.
+  
 ### Molecular Representations
 
 GB-BI supports several molecular representation that are based on bit vectors or strings. These representations are used for the surrogate models using the Tanimoto kernel from GAUCHE. The string-based representations are turned into a bag-of-characters before being used in the kernel. Note that several of these vectors representations are currently not natively supported by GAUCHE. 
