@@ -25,10 +25,10 @@ Despite a surge of deep learning papers focused on generative models for small m
 
 Standard quality-diversity (QD) and Bayesian optimisation (BO) libraries do not cater to particularities of optimising small molecules. Therefore, GB-BI relies on two packages that provide these utilities specifically for small molecules. 
 
-* **GB-EPI:** a quality-diversity software package for the optimisation of small molecules which enforces diversity in chemical space by creating niches based on physicochemical properties.
-* **GAUCHE:** a Gaussian process framework for chemistry, providing more than 30 bespoke kernels for small molecules, proteins and chemical reactions.
+* **GB-EPI:** a [quality-diversity software package](https://github.com/Jonas-Verhellen/Argenomic) for the optimisation of small molecules which enforces diversity in chemical space by creating niches based on physicochemical properties.
+* **GAUCHE:** a [Gaussian process framework](https://github.com/leojklarner/gauche) for chemistry, providing more than 30 bespoke kernels for small molecules, proteins and chemical reactions.
 
-For the mutatations, crossovers, structural filters and physicochemical descriptors, we rely on RDKit. The structural filters are based on scripts provided by Patrick Walters. The mutations and crossovers are inspired by the Graph-Based Genetic Algorithm (GB-GA) by Jan H. Jensen. Ideas regarding the application of acquisition functions and Bayesian optimsation to quality-diversity methods (and MAP-Elites specifically) were spurred on by the publication of the BOP-Elites algorithm.
+For the mutatations, crossovers, structural filters and physicochemical descriptors, we rely on [RDKit](https://github.com/rdkit/rdkit). The structural filters are based on [scripts](https://github.com/PatWalters/rd_filters) provided by Patrick Walters. The graph-based mutations and crossovers are inspired by Jan H. Jensen's Graph-Based Genetic Algorithm ([GB-GA](https://github.com/jensengroup/GB_GA)). Ideas regarding the application of acquisition functions and Bayesian optimsation to quality-diversity methods (and MAP-Elites specifically) were spurred on by the publication of the [BOP-Elites algorithm](https://arxiv.org/abs/2005.04320).
 
 ### Fitness Functions
 
