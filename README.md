@@ -34,8 +34,8 @@ For the mutatations, crossovers, structural filters and physicochemical descript
 
 GB-BI provides three classes of fitness functions out-of-the-box: fingerprint-based rediscovery, descriptor-based rediscovery, and SAS-modulated docking scores. These fitness functions can and have been used as benchmark tools to probe the effciency of generative models but also have direct practical applications. Additional fitness functions can easily be added to the codebase.
 
-* **Fingerprint-Based Rediscovery:** A lightweight task focused on molecule rediscovery where the fitness of a generated molecule is assessed using the Tanimoto similarity between the generated molecule and the target molecule, based on their respective extended-connectivity fingerprints. Implementation based on Gaucamol. 
-* **Descriptor-Based Rediscovery:**  An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is assessed using the conformer-aggregated similarity between the generated molecule and the target molecule, based on their respective descriptors (USRCAT or Zernike). 
+* **Fingerprint-Based Rediscovery:** A lightweight task focused on molecule rediscovery where the fitness of a molecule is the Tanimoto similarity to the target molecule, based on their respective extended-connectivity fingerprints. Implementation based on Gaucamol. 
+* **Descriptor-Based Rediscovery:**  An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is the conformer-aggregated similarity to the target molecule, based on their respective descriptors (USRCAT or Zernike). 
 * **SAS-Modulated Docking Scores:** A computationally intensive task, utilising docking methods which evaluate the theoretical affinity between a small molecule and a target protein. To avoid pure exploitation of the docking method, the scores are modulated by the synthetic accesibility of the small molecule.
   
 ### Molecular Representations
