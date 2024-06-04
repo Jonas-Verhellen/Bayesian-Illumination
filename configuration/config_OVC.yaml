@@ -1,0 +1,40 @@
+---
+controller:
+  max_generations: 1000
+  max_fitness_calls: 5000
+archive:
+  name: Troglitazone
+  size: 150
+  accuracy: 25000
+descriptor:
+  properties:
+  - Descriptors.ExactMolWt
+  - Descriptors.MolLogP
+  - Descriptors.TPSA
+  - Crippen.MolMR
+  ranges:
+  - - 500
+    - 700
+  - - -0.5
+    - 5.5
+  - - 150
+    - 300
+  - - 100
+    - 300
+fitness:
+  type: OVC
+  target: combined
+arbiter:
+  rules:
+  - Glaxo
+generator:
+  batch_size: 40
+  initial_size: 500
+  mutation_data: data/smarts/mutation_collection.tsv
+  initial_data: data/smiles/ovc.smi
+surrogate:
+  type: Fingerprint
+  representation: ECFP4
+acquisition: 
+  type: Mean
+  

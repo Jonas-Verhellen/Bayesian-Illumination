@@ -23,7 +23,7 @@ descriptor:
     - 130
 fitness:
   type: Fingerprint
-  target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
+  target: "c1cc(C)ccc1c2cc(C(F)(F)F)nn2c3ccc(cc3)S(=O)(=O)N"
   representation: ECFP4
 arbiter:
   rules:
@@ -32,7 +32,7 @@ generator:
   batch_size: 40
   initial_size: 40
   mutation_data: data/smarts/mutation_collection.tsv
-  initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
+  initial_data: data/smiles/guacamol_intitial_rediscovery_celecoxib.smi
 surrogate:
   type: String
   representation: Selfies

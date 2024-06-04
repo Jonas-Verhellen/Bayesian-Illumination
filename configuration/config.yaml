@@ -1,7 +1,7 @@
 ---
 controller:
   max_generations: 300
-  max_fitness_calls: 3000
+  max_fitness_calls: 2500
 archive:
   name: Troglitazone
   size: 150
@@ -22,9 +22,8 @@ descriptor:
   - - 40
     - 130
 fitness:
-  type: Fingerprint
-  target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
-  representation: ECFP4
+  type: Guacamol
+  target: median2
 arbiter:
   rules:
   - Glaxo
@@ -35,7 +34,6 @@ generator:
   initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
 surrogate:
   type: Fingerprint
-  representation: ECFP6
+  representation: ECFP4
 acquisition: 
-  type: logEI
-  
+  type: Mean

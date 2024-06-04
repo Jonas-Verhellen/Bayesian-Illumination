@@ -1,0 +1,9 @@
+acquisition_value,descriptor,fitness,niche_index,pedigree,predicted_fitness,predicted_uncertainty,smiles
+,"[0.6095797827636364, 0.7194666666666673, 0.6035714285714285, 0.8658655555555558]",0.1129720199021727,14,"('database', 'no reaction', 'database')",,,COc1ccc(CC2SC(=O)NC2=O)cc1C(=O)NCc1ccc(C(C)(C)C)cc1
+,"[0.6215753255272725, 0.5060833333333333, 0.7354285714285714, 0.803687777777778]",0.10242046525711665,21,"('database', 'no reaction', 'database')",,,COc1ccc(CNC(=O)c2cc(CC3SC(=O)NC3=O)ccc2OC)cc1OC
+,"[0.3155907575030302, 0.8142600000000008, 0.3962857142857143, 0.6292577777777781]",0.024013302855688378,50,"('database', 'no reaction', 'database')",,,Cc1c(C)c2c(c(C)c1N)CC(C)(CSc1ccc(O)cc1)O2
+,"[0.5277285735757575, 0.9514900000000007, 0.5402142857142858, 0.793605555555556]",0.1361102707135904,67,"('database', 'no reaction', 'database')",,,Cc1ccc(CC2CC(=O)NC(=O)S2)c(C)c1Oc1ccc(O)c(C(C)C)c1
+,"[0.6941849312242425, 0.6529833333333336, 0.6695, 0.7323433333333335]",0.0822506665864851,80,"('database', 'no reaction', 'database')",,,COc1ccc(CC2SC(=O)NC2=O)cc1C(=O)NCc1ccc(OC(F)(F)F)cc1
+,"[0.3975719981090907, 0.8520066666666675, 0.4208571428571429, 0.6963955555555562]",0.02676816395206364,108,"('database', 'no reaction', 'database')",,,COc1c(C)c(C)c2c(c1CCc1ccc(O)c(O)c1)CCC(C)(C)O2
+,"[0.5125844600121211, 0.9738066666666675, 0.7045, 0.7577355555555559]",0.04181724950890885,115,"('database', 'no reaction', 'database')",,,Cc1c(C)c2c(c(-c3cc(-c4ccc([N+](=O)[O-])cc4)on3)c1O)CCC(C)(C)O2
+,"[0.4672071463030303, 0.9905400000000008, 0.4622857142857143, 0.7565977777777781]",0.024453870211301416,130,"('database', 'no reaction', 'database')",,,COc1ccc(-c2cc(-c3c(O)c(C)c(C)c4c3CCC(C)(C)O4)on2)cc1
