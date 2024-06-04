@@ -3,10 +3,10 @@ import logging
 from typing import List
 from omegaconf import OmegaConf
 
-from illumnination.base import Molecule
-from illumnination.operations import Generator
-from illumnination.infrastructure import Arbiter, Archive, Controller
-from illumnination.mechanism import Fitness, Descriptor, Surrogate, Acquisition
+from illumination.base import Molecule
+from illumination.operations import Generator
+from illumination.infrastructure import Arbiter, Archive, Controller
+from illumination.mechanism import Fitness, Descriptor, Surrogate, Acquisition
 
 
 class Illuminate:
