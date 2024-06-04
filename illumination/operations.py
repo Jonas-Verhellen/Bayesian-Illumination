@@ -1,24 +1,23 @@
 import hydra
 import random
-import logging
-import numpy as np
 import pandas as pd
-from typing import List, Tuple
+from typing import List
 
 from rdkit import Chem
 from rdkit import rdBase
-rdBase.DisableLog('rdApp.error')
-
 from rdkit.Chem import AllChem
 from rdkit.Chem import rdMMPA
 
 from illumination.base import Molecule
+
+rdBase.DisableLog("rdApp.error")
 
 
 class Generator:
     """
     A catalog class containing and implementing mutations to small molecules according to the principles of positional analogue scanning.
     """
+
     def __init__(self, config) -> None:
         self.archive = None
         self.crossover = Crossover()
@@ -43,34 +42,38 @@ class Generator:
 
     def load_from_database(self) -> List[Molecule]:
         dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.initial_data))
-        smiles_list = dataframe['smiles'].sample(n=self.initial_size).tolist()
+        smiles_list = dataframe["smiles"].sample(n=self.initial_size).tolist()
         pedigree = ("database", "no reaction", "database")
         molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
         return molecules
+
 
 class Mutator:
     """
     A catalog class containing and implementing mutations to small molecules according to the principles of positional analogue scanning.
     """
+
     def __init__(self, mutation_data) -> None:
-        self.mutation_data = pd.read_csv(hydra.utils.to_absolute_path(mutation_data), sep='\t')
+        self.mutation_data = pd.read_csv(hydra.utils.to_absolute_path(mutation_data), sep="\t")
 
     def __call__(self, molecule) -> List[Molecule]:
-        sampled_mutation = self.mutation_data.sample(n=1, weights='probability').iloc[0]
-        reaction = AllChem.ReactionFromSmarts(sampled_mutation['smarts'])
-        pedigree = ("mutation", sampled_mutation['smarts'], molecule.smiles)
+        sampled_mutation = self.mutation_data.sample(n=1, weights="probability").iloc[0]
+        reaction = AllChem.ReactionFromSmarts(sampled_mutation["smarts"])
+        pedigree = ("mutation", sampled_mutation["smarts"], molecule.smiles)
         try:
             molecular_graphs = [products[0] for products in reaction.RunReactants([Chem.MolFromSmiles(molecule.smiles)])]
             smiles_list = [Chem.MolToSmiles(molecular_graph) for molecular_graph in molecular_graphs if molecular_graph is not None]
             molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list if Chem.MolFromSmiles(smiles)]
-        except:
+        except Exception:
             molecules = []
         return molecules
+
 
 class Crossover:
     """
     A strategy class implementing a parent-centric crossover of small molecules.
     """
+
     def __init__(self):
         pass
 
@@ -84,7 +87,7 @@ class Crossover:
         molecular_graphs = []
         graph_cores, graph_sidechains = self.fragment(molecule_pair)
         random.shuffle(graph_sidechains)
-        reaction = AllChem.ReactionFromSmarts('[*:1]-[1*].[1*]-[*:2]>>[*:1]-[*:2]')
+        reaction = AllChem.ReactionFromSmarts("[*:1]-[1*].[1*]-[*:2]>>[*:1]-[*:2]")
         for core, sidechain in zip(graph_cores, graph_sidechains):
             molecular_graphs.append(reaction.RunReactants((core, sidechain))[0][0])
         smiles_list = [Chem.MolToSmiles(molecular_graph) for molecular_graph in molecular_graphs if molecular_graph is not None]

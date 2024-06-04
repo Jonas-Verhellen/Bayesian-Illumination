@@ -55,7 +55,7 @@ class Illuminate:
         if self.controller.remaining_fitness_calls >= len(molecules):
             molecules = [self.fitness(molecule) for molecule in molecules]
         else:
-            molecules = molecules[:self.controller.remaining_fitness_calls]
+            molecules = molecules[: self.controller.remaining_fitness_calls]
             molecules = [self.fitness(molecule) for molecule in molecules]
         self.controller.add_fitness_calls(len(molecules))
         return molecules
@@ -74,6 +74,7 @@ class Illuminate:
         self.surrogate.add_to_prior_data(molecules)
         self.controller.update()
         return None
+
 
 @hydra.main(config_path="configuration", config_name="config.yaml")
 def launch(config) -> None:

@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from dataclasses import dataclass
 
+
 class Elite:
     def __init__(self, index):
         self.index = index
@@ -13,10 +14,11 @@ class Elite:
             self.fitness = molecule.fitness
         return None
 
+
 @dataclass()
 class Molecule:
     smiles: str
-    pedigree: Tuple[str, str ,str] 
+    pedigree: Tuple[str, str, str]
     fitness: float = None
     niche_index: int = None
     descriptor: List[float] = None

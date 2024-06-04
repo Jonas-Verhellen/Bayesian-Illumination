@@ -1,24 +1,32 @@
 import sys
-import torch
-import numpy as np
 from typing import List
+
+from illumination.functions.surrogate import String_Surrogate, Fingerprint_Surrogate
+from illumination.functions.fitness import (
+    Fingerprint_Fitness,
+    Gaucamol_Fitness,
+    USRCAT_Fitness,
+    Zernike_Fitness,
+    OVC_Fitness,
+)
+from illumination.functions.acquisition import (
+    Posterior_Mean,
+    Upper_Confidence_Bound,
+    Expected_Improvement,
+    Log_Expected_Improvement,
+)
 
 from rdkit import Chem
 from rdkit import rdBase
-rdBase.DisableLog('rdApp.error')
-from rdkit.Chem import AllChem
-from rdkit.Chem import Crippen
-from rdkit.Chem import Lipinski
-from rdkit.Chem import Descriptors
 
-from illumination.functions.surrogate import String_Surrogate, Fingerprint_Surrogate
-from illumination.functions.fitness import Fingerprint_Fitness, Gaucamol_Fitness, USRCAT_Fitness, Zernike_Fitness, OVC_Fitness
-from illumination.functions.acquisition import Posterior_Mean, Upper_Confidence_Bound, Expected_Improvement, Log_Expected_Improvement
+rdBase.DisableLog("rdApp.error")
+
 
 class Descriptor:
     """
     A strategy class for calculating the descriptor vector of a molecule.
     """
+
     def __init__(self, config) -> None:
         self.properties = []
         self.ranges = config.ranges
@@ -46,8 +54,9 @@ class Descriptor:
         """
         Rescales the feature to the unit range.
         """
-        rescaled_feature = (feature - range[0])/(range[1] - range[0])
+        rescaled_feature = (feature - range[0]) / (range[1] - range[0])
         return rescaled_feature
+
 
 class Surrogate:
     """
@@ -58,6 +67,7 @@ class Surrogate:
     Methods:
     __new__: Static method for creating and returning an instance of a specific fitness function based on the configuration.
     """
+
     @staticmethod
     def __new__(self, config):
         """
@@ -78,6 +88,7 @@ class Surrogate:
             case _:
                 raise ValueError(f"{config.type} is not a supported surrogate function type.")
 
+
 class Fitness:
     """
     A factory class for creating instances of various fitness functions based on the provided configuration.
@@ -86,6 +97,7 @@ class Fitness:
     Methods:
     __new__: Static method for creating and returning an instance of a specific fitness function based on the configuration.
     """
+
     @staticmethod
     def __new__(self, config):
         """
@@ -112,6 +124,7 @@ class Fitness:
             case _:
                 raise ValueError(f"{config.type} is not a supported fitness function type.")
 
+
 class Acquisition:
     """
     A factory class for creating instances of various acquisition functions based on the provided configuration.
@@ -121,6 +134,7 @@ class Acquisition:
     Methods:
     __new__: Static method for creating and returning an instance of a specific acquisition function based on the configuration.
     """
+
     @staticmethod
     def __new__(self, config):
         """
@@ -134,13 +148,13 @@ class Acquisition:
         """
 
         match config.type:
-            case 'Mean':
+            case "Mean":
                 return Posterior_Mean(config)
-            case 'UCB':
+            case "UCB":
                 return Upper_Confidence_Bound(config)
-            case 'EI':
+            case "EI":
                 return Expected_Improvement(config)
-            case 'logEI':
+            case "logEI":
                 return Log_Expected_Improvement(config)
             case _:
                 raise ValueError(f"{config.type} is not a supported acquisition function type.")
