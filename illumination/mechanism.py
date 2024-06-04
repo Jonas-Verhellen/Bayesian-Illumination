@@ -2,19 +2,8 @@ import sys
 from typing import List
 
 from illumination.functions.surrogate import String_Surrogate, Fingerprint_Surrogate
-from illumination.functions.fitness import (
-    Fingerprint_Fitness,
-    Gaucamol_Fitness,
-    USRCAT_Fitness,
-    Zernike_Fitness,
-    OVC_Fitness,
-)
-from illumination.functions.acquisition import (
-    Posterior_Mean,
-    Upper_Confidence_Bound,
-    Expected_Improvement,
-    Log_Expected_Improvement,
-)
+from illumination.functions.fitness import Fingerprint_Fitness, Gaucamol_Fitness, USRCAT_Fitness, Zernike_Fitness, OVC_Fitness
+from illumination.functions.acquisition import Posterior_Mean, Upper_Confidence_Bound, Expected_Improvement, Log_Expected_Improvement
 
 from rdkit import Chem
 from rdkit import rdBase
