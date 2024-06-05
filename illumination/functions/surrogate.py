@@ -16,9 +16,7 @@ import torch
 import numpy as np
 import selfies as sf
 
-
 from sklearn.feature_extraction.text import CountVectorizer
-
 
 class GP_Surrogate(ABC):
     """
@@ -44,8 +42,8 @@ class GP_Surrogate(ABC):
         """
         Initializes the Surrogate object with default or provided parameters.
 
-        Parameters:
-        - config: An object specifying the configuration for the surrogate model.
+        Args:
+            config: An object specifying the configuration for the surrogate model.
         """
         self.config = config
         self.model = None
@@ -59,27 +57,21 @@ class GP_Surrogate(ABC):
         """
         Evaluates the surrogate model on a set of molecules, updating their predicted fitness and uncertainty.
 
-        Parameters:
-        - molecules: A list of molecules to be evaluated.
+        Args:
+            molecules: A list of Molecule objects to be evaluated.
 
         Returns:
-        A list of molecules with updated predicted fitness and uncertainty.
+            List[Molecule]: A list of molecules with updated predicted fitness and uncertainty.
         """
         encodings = self.calculate_encodings(molecules)
         self.update_model()
         molecules = self.inference(molecules, encodings)
         return molecules
 
-    def inference(self, molecules, encodings):
-        self.mll.eval()
-        self.model.eval()
-        predictions = self.model(torch.tensor(encodings))
-        for molecule, prediction_mean, prediction_variance in zip(molecules, predictions.mean, predictions.variance):
-            molecule.predicted_fitness = prediction_mean.detach().item()
-            molecule.predicted_uncertainty = prediction_variance.detach().item()
-        return molecules
-
     def update_model(self):
+        """
+        Updates the surrogate model with new molecules and their fitness values.
+        """
         self.model = TanimotoGP(torch.tensor(self.encodings), torch.tensor(self.fitnesses).flatten())
         self.mll = ExactMarginalLogLikelihood(self.model.likelihood, self.model)
         if self.state_dict is not None:
@@ -88,30 +80,114 @@ class GP_Surrogate(ABC):
         self.state_dict = self.model.state_dict()
         return None
 
+    def inference(self, molecules, encodings):
+        """
+        Performs inference on a set of molecules to predict fitness and uncertainty.
+
+        Args:
+            molecules: A list of Molecule objects to be evaluated.
+            encodings: The encodings of the molecules.
+
+        Returns:
+            List[Molecule]: A list of molecules with updated predicted fitness and uncertainty.
+        """
+        self.mll.eval()
+        self.model.eval()
+        predictions = self.model(torch.tensor(encodings))
+        for molecule, prediction_mean, prediction_variance in zip(molecules, predictions.mean, predictions.variance):
+            molecule.predicted_fitness = prediction_mean.detach().item()
+            molecule.predicted_uncertainty = prediction_variance.detach().item()
+        return molecules
+
     @abstractmethod
     def add_to_prior_data(self, molecules):
+        """
+        Adds new molecules to the prior data for the surrogate model.
+
+        Args:
+            molecules: A list of Molecule objects to be added to the prior data.
+
+        Returns:
+            None
+        """
         raise NotImplementedError
 
     @abstractmethod
     def calculate_encodings(self, molecules):
+        """
+        Calculates representations (encodings) of molecules for the surrogate model.
+
+        Args:
+            molecules: A list of Molecule objects to be encoded.
+
+        Returns:
+            Numpy array: Encodings of the molecules.
+        """
         raise NotImplementedError
 
 
 class TanimotoGP(ExactGP):
+    """
+    A Gaussian Process (GP) regression model using the Tanimoto kernel for molecular data.
+
+    Attributes:
+        mean_module: The mean function of the GP model.
+        covar_module: The covariance (kernel) function of the GP model.
+        likelihood: The likelihood function of the GP model.
+
+    Methods:
+        __init__: Initializes the TanimotoGP model with training data.
+        forward: Performs the forward pass of the GP model to compute the predictive distribution.
+    """
     def __init__(self, train_X, train_Y):
+        """
+        Initializes the TanimotoGP model with training data.
+
+        Args:
+            train_X: Tensor of training input data (molecular encodings).
+            train_Y: Tensor of training output data (fitness values).
+        """
         super().__init__(train_X, train_Y, likelihood=GaussianLikelihood())
         self.mean_module = ConstantMean()
         self.covar_module = ScaleKernel(base_kernel=TanimotoKernel())
         self.to(train_X)
 
     def forward(self, x):
+        """
+        Performs the forward pass of the GP model to compute the predictive distribution.
+
+        Args:
+            x: Tensor of input data for which predictions are to be made.
+
+        Returns:
+            MultivariateNormal: The predictive mean and covariance for the input data.
+        """
         mean_x = self.mean_module(x)
         covar_x = self.covar_module(x)
         return MultivariateNormal(mean_x, covar_x)
 
 
 class Fingerprint_Surrogate(GP_Surrogate):
+    """
+    A surrogate model using molecular fingerprints for predicting fitness values.
+    The surrogate model is based on Gaussian Processes (GP) regression.
+
+    Attributes:
+        representation: The type of molecular fingerprint used for encoding molecules.
+        generator: The fingerprint generator corresponding to the chosen representation.
+
+    Methods:
+        __init__: Initializes the Fingerprint_Surrogate object with the specified fingerprint representation.
+        calculate_encodings: Calculates fingerprint encodings for a list of molecules.
+        add_to_prior_data: Adds new molecules and their fitness values to the training data for the GP model.
+    """
     def __init__(self, config):
+        """
+        Initializes the Fingerprint_Surrogate object with the specified fingerprint representation.
+
+        Args:
+            config: An object specifying the configuration for the surrogate model.
+        """
         super().__init__(config)
         self.representation = self.config.representation
         match self.representation:
@@ -120,17 +196,9 @@ class Fingerprint_Surrogate(GP_Surrogate):
             case "ECFP6":
                 self.generator = rdFingerprintGenerator.GetMorganGenerator(radius=3, fpSize=2048)
             case "FCFP4":
-                self.generator = rdFingerprintGenerator.GetMorganGenerator(
-                    radius=2,
-                    fpSize=2048,
-                    atomInvariantsGenerator=rdFingerprintGenerator.GetMorganFeatureAtomInvGen(),
-                )
+                self.generator = rdFingerprintGenerator.GetMorganGenerator(radius=2, fpSize=2048, atomInvariantsGenerator=rdFingerprintGenerator.GetMorganFeatureAtomInvGen())
             case "FCFP6":
-                self.generator = rdFingerprintGenerator.GetMorganGenerator(
-                    radius=3,
-                    fpSize=2048,
-                    atomInvariantsGenerator=rdFingerprintGenerator.GetMorganFeatureAtomInvGen(),
-                )
+                self.generator = rdFingerprintGenerator.GetMorganGenerator(radius=3, fpSize=2048, atomInvariantsGenerator=rdFingerprintGenerator.GetMorganFeatureAtomInvGen())
             case "RDFP":
                 self.generator = rdFingerprintGenerator.GetRDKitFPGenerator(fpSize=2048)
             case "APFP":
@@ -140,41 +208,76 @@ class Fingerprint_Surrogate(GP_Surrogate):
             case _:
                 raise ValueError(f"{self.representation} is not a supported fingerprint type.")
 
-    def add_to_prior_data(self, molecules):
+    def calculate_encodings(self, molecules):
         """
-        Updates the prior data for the surrogate model with new molecules and their fitness values.
+        Calculates fingerprint encodings for a list of molecules.
 
-        Parameters:
-        - molecules: A list of molecules with associated fitness values.
+        Args:
+            molecules: A list of molecules to be encoded.
 
         Returns:
-        None
+            List[np.ndarray]: A list of fingerprint encodings.
+        """
+        molecular_graphs = [Chem.MolFromSmiles(Chem.CanonSmiles(molecule.smiles)) for molecule in molecules]
+        return np.array([self.generator.GetFingerprintAsNumPy(molecular_graph) for molecular_graph in molecular_graphs]).astype(np.float64)
+
+    def add_to_prior_data(self, molecules):
+        """
+        Adds new molecules and their fitness values to the training data for the GP model.
+
+        Args:
+            molecules: A list of new molecules to be added to the training data.
+
+        Returns:
+            None
         """
         if self.encodings is not None and self.fitnesses is not None:
             self.encodings = np.append(self.encodings, self.calculate_encodings(molecules), axis=0)
-            self.fitnesses = np.append(
-                self.fitnesses,
-                np.array([molecule.fitness for molecule in molecules]),
-                axis=None,
-            )
+            self.fitnesses = np.append(self.fitnesses, np.array([molecule.fitness for molecule in molecules]), axis=None,)
         else:
             self.encodings = self.calculate_encodings(molecules)
             self.fitnesses = np.array([molecule.fitness for molecule in molecules])
         return None
 
-    def calculate_encodings(self, molecules):
-        molecular_graphs = [Chem.MolFromSmiles(Chem.CanonSmiles(molecule.smiles)) for molecule in molecules]
-        return np.array([self.generator.GetFingerprintAsNumPy(molecular_graph) for molecular_graph in molecular_graphs]).astype(np.float64)
 
 
 class String_Surrogate(GP_Surrogate):
+    """
+    A surrogate model using molecular string representations (SMILES or SELFIES) for predicting fitness values.
+    The surrogate model is based on Gaussian Processes (GP) regression.
+
+    Attributes:
+        smiles: A list of SMILES strings representing the molecules.
+        representation: The type of molecular string representation used (e.g., SMILES or SELFIES).
+        cv: A CountVectorizer object for converting molecular strings into numerical representations.
+
+    Methods:
+        __init__: Initializes the String_Surrogate object with the specified molecular string representation.
+        calculate_encodings: Calculates string encodings for a list of molecules.
+        add_to_prior_data: Adds new molecules and their fitness values to the training data for the GP model.
+    """
     def __init__(self, config):
+        """
+        Initializes the String_Surrogate object with the specified molecular string representation.
+
+        Args:
+            config: An object specifying the configuration for the surrogate model.
+        """
         super().__init__(config)
         self.smiles = []
         self.representation = self.config.representation
         self.cv = CountVectorizer(ngram_range=(1, self.config.max_ngram), analyzer="char", lowercase=False)
 
     def calculate_encodings(self, molecules):
+        """
+        Calculates string encodings for a list of molecules.
+
+        Args:
+            molecules: A list of molecules to be encoded.
+
+        Returns:
+            np.ndarray: A 2D array of string encodings.
+        """
         smiles = [molecule.smiles for molecule in molecules]
         combined_smiles = self.smiles + smiles
         if self.representation == "Smiles":
@@ -188,21 +291,17 @@ class String_Surrogate(GP_Surrogate):
 
     def add_to_prior_data(self, molecules):
         """
-        Updates the prior data for the surrogate model with new molecules and their fitness values.
+        Adds new molecules and their fitness values to the training data for the GP model.
 
-        Parameters:
-        - molecules: A list of molecules with associated fitness values.
+        Args:
+            molecules: A list of new molecules to be added to the training data.
 
         Returns:
-        None
+            None
         """
         if self.smiles is not None and self.fitnesses is not None:
             self.smiles = self.smiles + [molecule.smiles for molecule in molecules]
-            self.fitnesses = np.append(
-                self.fitnesses,
-                np.array([molecule.fitness for molecule in molecules]),
-                axis=None,
-            )
+            self.fitnesses = np.append(self.fitnesses, np.array([molecule.fitness for molecule in molecules]), axis=None)
         else:
             self.smiles = [molecule.smiles for molecule in molecules]
             self.fitnesses = np.array([molecule.fitness for molecule in molecules])
