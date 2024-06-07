@@ -8,6 +8,12 @@ from illumination.functions.acquisition import Posterior_Mean, Upper_Confidence_
 from rdkit import Chem
 from rdkit import rdBase
 
+from rdkit.Chem import AllChem # noqa
+from rdkit.Chem import Crippen # noqa
+from rdkit.Chem import Lipinski # noqa
+from rdkit.Chem import Descriptors # noqa
+from rdkit.Chem import rdMolDescriptors # noqa
+
 rdBase.DisableLog("rdApp.error")
 
 
