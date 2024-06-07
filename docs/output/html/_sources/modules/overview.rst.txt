@@ -1,0 +1,73 @@
+Core Functionality
+==========
+.. include:: _toctree.rst
+
+Fitness Functions
+-----------------
+
+GB-BI provides three classes of fitness functions out-of-the-box: fingerprint-based rediscovery, descriptor-based rediscovery, and SAS-modulated docking scores. These fitness functions can and have been used as benchmark tools to probe the efficiency of generative models but also have direct practical applications. Additional fitness functions can easily be added to the codebase.
+
+.. list-table::
+   :header-rows: 1
+
+   * - **Task**
+     - **Description**
+   * - **Fingerprint Rediscovery**
+     - A lightweight task focused on molecule rediscovery where the fitness of a molecule is the Tanimoto similarity to the target molecule, based on their respective extended-connectivity fingerprints. Implementation based on Gaucamol, but applicable to generic targets.
+   * - **Descriptor Rediscovery**
+     - An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is defined as the conformer-aggregated similarity to the target molecule. Conformer similarity is based on either USRCAT or Zernike descriptors.
+   * - **SAS-Modulated Docking Scores**
+     - A computationally intensive task, utilizing docking methods which evaluate the theoretical affinity between a small molecule and a target protein. To avoid pure exploitation of the docking method, the scores are modulated by the synthetic accessibility of the small molecule.
+
+
+Representations
+-----------------
+
+GB-BI supports several molecular representations that are based on bit vectors or strings. These representations are used for the surrogate models using the Tanimoto kernel from GAUCHE. The string-based representations are turned into a bag-of-characters before being used in the kernel. Note that several of these vector representations are currently not natively supported by GAUCHE.
+
+.. list-table::
+   :header-rows: 1
+
+   * - **Representation**
+     - **Description**
+   * - **ECFP**
+     - Extended-Connectivity Fingerprints (ECFP) are circular topological fingerprints that represent the presence of particular substructures.
+   * - **FCFP**
+     - Functional-Class Fingerprints (FCFP) are circular topological fingerprints that represent the presence of particular pharmacophoric properties.
+   * - **RDFP**
+     - RDKit-specific fingerprints (RDFP) are inspired by public descriptions of the Daylight fingerprints, but differ significantly in practical implementation.
+   * - **APFP**
+     - Atom pair fingerprints (APFP) encode all unique triplets of atomic number, number of heavy atom neighbours, aromaticity, and chirality in a vector format.
+   * - **TTFP**
+     - Topological torsion fingerprints (TTFP) encode the long-range relationships captured in atom pair fingerprints through information on the torsion angles.
+   * - **SMILES**
+     - The simplified molecular-input line-entry system (SMILES) is a widely used line notation for describing a small molecule in terms of short ASCII strings.
+   * - **SELFIES**
+     - Self-referencing embedded strings (SELFIES) are an alternative line notation for a small molecule, designed to be used in arbitrary machine learning models.
+
+
+Acquisition Functions
+----------------------
+
+Acquisition functions are heuristics employed to evaluate the potential of candidate moelcules based on their predicted fitness value and the associated uncertainty of a surrogate fitness model (i.e. the Gaussian process). A large literature exists on the topic of acquisition functions and their design. GB-BI supports several of the most well-known and often used acquisition functions.
+
+.. list-table::
+   :header-rows: 1
+
+   * - **Acquisition Function**
+     - **Description**
+   * - **Mean**
+     - The posterior mean (mean) is simply the direct fitness value as predicted by the surrogate fitness model.
+   * - **UCB**
+     - The upper confidence bound (UCB) balances exploration and exploitation based on a confidence boundary derived from the surrogate fitness model.
+   * - **EI**
+     - The expected improvement (EI) considers both the probability of improving on the current solutions and the magnitude of the predicted improvement.
+   * - **logEI**
+     - A numerically stable variant of the logarithm of the expected improvement (logEI), which was recently introduced to alleviate the vanishing gradient problems.
+
+Physicochemical Archive
+----------------------
+
+
+Structural Filters
+----------------------

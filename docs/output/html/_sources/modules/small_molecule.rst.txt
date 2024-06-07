@@ -1,0 +1,63 @@
+Fingerprint Rediscovery
+=======================
+
+Welcome to the tutorial notebook on using GB-GI to rediscover small molecules based on their fingerprints! Because GB-BI is a quality-diversity method, the end result of such an optimisation is a collection of high-scoring molecules, i.e. highly similar to the target molecule, which includes the target molecule and display a diversity of physicochemical properties. So, if you're eager to learn how to use GB-GI's rediscovery capabilities or you want to know how to use different types of fingerprints, you're in the right place. For rediscovery based on descriptors and conformer aggregate similarity, see the dedicated tutorial.
+
+The Command Line
+---------------------
+
+The most basic usage of GB-BI is to simply run the illuminate.py file, without any extra configurations specified in the command line. In this case, GB-BI will call on the `config.yaml` file in ../Argenomic-GP/configuration folder by making use of Hydra (an open-source Python framework that handles a hierarchical configuration file which can be easily be adapted). The standard config file will start the rediscovery of Troglitazone for a maximum of a 100 generations or a 1000 fitness calls.
+
+.. code-block::
+
+   python GB-BI.py
+
+
+The Configuration File
+---------------------
+
+To change the target or the setting of the GB-BI optimisation run, simply adapt the configuration file or overwrite it in the command line. While initially the configuration file seem complex or even somewhat intimidating, each of the individual components are very easy to understand and adapt. Later on in this tutorial, we will go into detail for each of the components, but for now we just want to highlight a few key aspects.
+
+.. code-block:: JSON
+
+   controller:
+   max_generations: 100
+   max_fitness_calls: 1000
+   archive:
+   name: archive_150_4_25000
+   size: 150
+   accuracy: 25000
+   descriptor:
+   properties:
+   - Descriptors.ExactMolWt
+   - Descriptors.MolLogP
+   - Descriptors.TPSA
+   - Crippen.MolMR
+   ranges:
+   - - 225
+      - 555
+   - - -0.5
+      - 5.5
+   - - 0
+      - 140
+   - - 40
+      - 130
+   fitness:
+   type: Fingerprint
+   target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
+   representation: ECFP4
+   arbiter:
+   rules:
+   - Glaxo
+   generator:
+   batch_size: 40
+   initial_size: 40
+   mutation_data: data/smarts/mutation_collection.tsv
+   initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
+   surrogate:
+   type: Fingerprint
+   representation: ECFP4
+   acquisition:
+   type: Mean
+
+   This standard config file specifies GB_BI run for a maximum of 100 generations or 1000 fitness function calls with an archive containing 150 niches. This is also the maximum amount of molecules that could potentially make up the evolutionary population at any given generation. The archive is spanned by 4 descriptors (`Descriptors.ExactMolWt`, `Descriptors.MolLogP`, `Descriptors.TPSA`, `Crippen.MolMR`) an limited to corresponding ranges indicated in the configuration file. The fitness function is the Tanimoto similarity (standard for all fingerprint representations) applied to ECFP4 fingerprints. The target, Troglitazone, is specified by its SMILES representation. Finally, the molecular representation (`ECFP4 fingerprints`) for the surrogate model and the acquisition function (`Posterior Mean`) are also specified.

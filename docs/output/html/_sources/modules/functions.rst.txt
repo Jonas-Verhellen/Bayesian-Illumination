@@ -1,0 +1,122 @@
+Functions
+===================
+
+
+Acquisition Functions
+======================
+
+This module contains various acquisition functions used in the illumination library.
+
+Posterior Mean
+--------------
+.. currentmodule:: illumination.functions.acquisition
+
+.. autoclass:: Posterior_Mean
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Upper Confidence Bound
+----------------------
+.. currentmodule:: illumination.functions.acquisition
+
+.. autoclass:: Upper_Confidence_Bound
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Expected Improvement
+---------------------
+.. currentmodule:: illumination.functions.acquisition
+
+.. autoclass:: Expected_Improvement
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Log Expected Improvement
+-------------------------
+.. currentmodule:: illumination.functions.acquisition
+
+.. autoclass:: Log_Expected_Improvement
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Surrogate Functions
+======================
+
+This module contains various surrogate functions used in the illumination library.
+
+Fingerprint Surrogate
+---------------------
+.. currentmodule:: illumination.functions.surrogate
+
+.. autoclass:: Fingerprint_Surrogate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+String Surrogate
+----------------
+.. currentmodule:: illumination.functions.surrogate
+
+.. autoclass:: String_Surrogate
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Fitness Functions
+==================
+
+This module contains various fitness evaluation functions used in the illumination library.
+
+Fingerprint Fitness
+-------------------
+.. currentmodule:: illumination.functions.fitness
+
+.. autoclass:: Fingerprint_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Descriptor Fitness
+------------------
+.. currentmodule:: illumination.functions.fitness
+
+.. autoclass:: USR_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: USRCAT_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. autoclass:: Zernike_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Gaucamol Fitness
+----------------
+.. currentmodule:: illumination.functions.fitness
+
+.. autoclass:: Gaucamol_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OVC Model Fitness
+-----------------
+.. currentmodule:: illumination.functions.fitness
+
+.. autoclass:: OVC_Fitness
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Docking Fitness
+---------------------

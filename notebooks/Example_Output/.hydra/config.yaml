@@ -1,0 +1,40 @@
+controller:
+  max_generations: 1000
+  max_fitness_calls: 5000
+archive:
+  name: Troglitazone
+  size: 150
+  accuracy: 25000
+descriptor:
+  properties:
+  - Descriptors.ExactMolWt
+  - Descriptors.MolLogP
+  - Descriptors.TPSA
+  - Crippen.MolMR
+  ranges:
+  - - 180
+    - 480
+  - - -0.4
+    - 5.6
+  - - 0
+    - 140
+  - - 40
+    - 130
+fitness:
+  type: Fingerprint
+  target: O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4
+  representation: ECFP4
+arbiter:
+  rules:
+  - Glaxo
+generator:
+  batch_size: 40
+  initial_size: 40
+  mutation_data: data/smarts/mutation_collection.tsv
+  initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
+surrogate:
+  type: Fingerprint
+  representation: ECFP4
+acquisition:
+  type: Mean
+  beta: 0.2

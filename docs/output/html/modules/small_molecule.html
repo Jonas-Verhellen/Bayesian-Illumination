@@ -1,0 +1,326 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
+        <title>Fingerprint Rediscovery - Documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+
+
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+
+      }
+    }
+  }
+</style></head>
+  <body>
+
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+
+  <span class="sidebar-brand-text">Documentation</span>
+
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Core Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fitness.html">functions.fitness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surrogate.html">functions.surrogate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acquisition.html">functions.acquisition</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fitness.html">functions.fitness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="surrogate.html">functions.surrogate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acquisition.html">functions.acquisition</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="fingerprint-rediscovery">
+<h1>Fingerprint Rediscovery<a class="headerlink" href="#fingerprint-rediscovery" title="Link to this heading">#</a></h1>
+<p>Welcome to the tutorial notebook on using GB-GI to rediscover small molecules based on their fingerprints! Because GB-BI is a quality-diversity method, the end result of such an optimisation is a collection of high-scoring molecules, i.e. highly similar to the target molecule, which includes the target molecule and display a diversity of physicochemical properties. So, if you’re eager to learn how to use GB-GI’s rediscovery capabilities or you want to know how to use different types of fingerprints, you’re in the right place. For rediscovery based on descriptors and conformer aggregate similarity, see the dedicated tutorial.</p>
+<section id="the-command-line">
+<h2>The Command Line<a class="headerlink" href="#the-command-line" title="Link to this heading">#</a></h2>
+<p>The most basic usage of GB-BI is to simply run the illuminate.py file, without any extra configurations specified in the command line. In this case, GB-BI will call on the <cite>config.yaml</cite> file in ../Argenomic-GP/configuration folder by making use of Hydra (an open-source Python framework that handles a hierarchical configuration file which can be easily be adapted). The standard config file will start the rediscovery of Troglitazone for a maximum of a 100 generations or a 1000 fitness calls.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GB</span><span class="o">-</span><span class="n">BI</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="the-configuration-file">
+<h2>The Configuration File<a class="headerlink" href="#the-configuration-file" title="Link to this heading">#</a></h2>
+<p>To change the target or the setting of the GB-BI optimisation run, simply adapt the configuration file or overwrite it in the command line. While initially the configuration file seem complex or even somewhat intimidating, each of the individual components are very easy to understand and adapt. Later on in this tutorial, we will go into detail for each of the components, but for now we just want to highlight a few key aspects.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span><span class="err">co</span><span class="kc">ntr</span><span class="err">oller</span><span class="p">:</span>
+<span class="err">max_ge</span><span class="kc">nerat</span><span class="err">io</span><span class="kc">ns</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span>
+<span class="err">max_</span><span class="kc">f</span><span class="err">i</span><span class="kc">tness</span><span class="err">_calls</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span>
+<span class="err">archive</span><span class="p">:</span>
+<span class="kc">na</span><span class="err">me</span><span class="p">:</span><span class="w"> </span><span class="err">archive_</span><span class="mi">150</span><span class="err">_</span><span class="mi">4</span><span class="err">_</span><span class="mi">25000</span>
+<span class="err">size</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span>
+<span class="err">accuracy</span><span class="p">:</span><span class="w"> </span><span class="mi">25000</span>
+<span class="err">descrip</span><span class="kc">t</span><span class="err">or</span><span class="p">:</span>
+<span class="err">proper</span><span class="kc">t</span><span class="err">ies</span><span class="p">:</span>
+<span class="mi">-</span><span class="w"> </span><span class="err">Descrip</span><span class="kc">t</span><span class="err">ors.Exac</span><span class="kc">t</span><span class="err">MolW</span><span class="kc">t</span>
+<span class="mi">-</span><span class="w"> </span><span class="err">Descrip</span><span class="kc">t</span><span class="err">ors.MolLogP</span>
+<span class="mi">-</span><span class="w"> </span><span class="err">Descrip</span><span class="kc">t</span><span class="err">ors.TPSA</span>
+<span class="mi">-</span><span class="w"> </span><span class="err">Crippe</span><span class="kc">n</span><span class="err">.MolMR</span>
+<span class="err">ra</span><span class="kc">n</span><span class="err">ges</span><span class="p">:</span>
+<span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="mi">225</span>
+<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">555</span>
+<span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="mf">-0.5</span>
+<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mf">5.5</span>
+<span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">140</span>
+<span class="mi">-</span><span class="w"> </span><span class="mi">-</span><span class="w"> </span><span class="mi">40</span>
+<span class="w">   </span><span class="mi">-</span><span class="w"> </span><span class="mi">130</span>
+<span class="kc">f</span><span class="err">i</span><span class="kc">tness</span><span class="p">:</span>
+<span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">Fi</span><span class="kc">n</span><span class="err">gerpri</span><span class="kc">nt</span>
+<span class="kc">tar</span><span class="err">ge</span><span class="kc">t</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4&quot;</span>
+<span class="err">represe</span><span class="kc">ntat</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">ECFP</span><span class="mi">4</span>
+<span class="err">arbi</span><span class="kc">ter</span><span class="p">:</span>
+<span class="err">rules</span><span class="p">:</span>
+<span class="mi">-</span><span class="w"> </span><span class="err">Glaxo</span>
+<span class="err">ge</span><span class="kc">nerat</span><span class="err">or</span><span class="p">:</span>
+<span class="err">ba</span><span class="kc">t</span><span class="err">ch_size</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+<span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">ial_size</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span>
+<span class="err">mu</span><span class="kc">tat</span><span class="err">io</span><span class="kc">n</span><span class="err">_da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">/smar</span><span class="kc">ts</span><span class="err">/mu</span><span class="kc">tat</span><span class="err">io</span><span class="kc">n</span><span class="err">_collec</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="err">.</span><span class="kc">ts</span><span class="err">v</span>
+<span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">t</span><span class="err">ial_da</span><span class="kc">ta</span><span class="p">:</span><span class="w"> </span><span class="err">da</span><span class="kc">ta</span><span class="err">/smiles/guacamol_i</span><span class="kc">nt</span><span class="err">i</span><span class="kc">t</span><span class="err">ial_rediscovery_</span><span class="kc">tr</span><span class="err">ogli</span><span class="kc">ta</span><span class="err">zo</span><span class="kc">ne</span><span class="err">.smi</span>
+<span class="err">surroga</span><span class="kc">te</span><span class="p">:</span>
+<span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">Fi</span><span class="kc">n</span><span class="err">gerpri</span><span class="kc">nt</span>
+<span class="err">represe</span><span class="kc">ntat</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span><span class="w"> </span><span class="err">ECFP</span><span class="mi">4</span>
+<span class="err">acquisi</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="p">:</span>
+<span class="kc">t</span><span class="err">ype</span><span class="p">:</span><span class="w"> </span><span class="err">Mea</span><span class="kc">n</span>
+
+<span class="err">This</span><span class="w"> </span><span class="err">s</span><span class="kc">tan</span><span class="err">dard</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">ig</span><span class="w"> </span><span class="kc">f</span><span class="err">ile</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ies</span><span class="w"> </span><span class="err">GB_BI</span><span class="w"> </span><span class="err">ru</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">maximum</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerat</span><span class="err">io</span><span class="kc">ns</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="kc">f</span><span class="err">i</span><span class="kc">tness</span><span class="w"> </span><span class="kc">fun</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">calls</span><span class="w"> </span><span class="err">wi</span><span class="kc">t</span><span class="err">h</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="w"> </span><span class="err">archive</span><span class="w"> </span><span class="err">co</span><span class="kc">nta</span><span class="err">i</span><span class="kc">n</span><span class="err">i</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="mi">150</span><span class="w"> </span><span class="kc">n</span><span class="err">iches.</span><span class="w"> </span><span class="err">This</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">also</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">maximum</span><span class="w"> </span><span class="err">amou</span><span class="kc">nt</span><span class="w"> </span><span class="err">o</span><span class="kc">f</span><span class="w"> </span><span class="err">molecules</span><span class="w"> </span><span class="kc">t</span><span class="err">ha</span><span class="kc">t</span><span class="w"> </span><span class="err">could</span><span class="w"> </span><span class="err">po</span><span class="kc">tent</span><span class="err">ially</span><span class="w"> </span><span class="err">make</span><span class="w"> </span><span class="err">up</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">evolu</span><span class="kc">t</span><span class="err">io</span><span class="kc">nar</span><span class="err">y</span><span class="w"> </span><span class="err">popula</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">a</span><span class="kc">t</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">y</span><span class="w"> </span><span class="err">give</span><span class="kc">n</span><span class="w"> </span><span class="err">ge</span><span class="kc">nerat</span><span class="err">io</span><span class="kc">n</span><span class="err">.</span><span class="w"> </span><span class="err">The</span><span class="w"> </span><span class="err">archive</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">spa</span><span class="kc">nne</span><span class="err">d</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="err">descrip</span><span class="kc">t</span><span class="err">ors</span><span class="w"> </span><span class="err">(`Descrip</span><span class="kc">t</span><span class="err">ors.Exac</span><span class="kc">t</span><span class="err">MolW</span><span class="kc">t</span><span class="err">`</span><span class="p">,</span><span class="w"> </span><span class="err">`Descrip</span><span class="kc">t</span><span class="err">ors.MolLogP`</span><span class="p">,</span><span class="w"> </span><span class="err">`Descrip</span><span class="kc">t</span><span class="err">ors.TPSA`</span><span class="p">,</span><span class="w"> </span><span class="err">`Crippe</span><span class="kc">n</span><span class="err">.MolMR`)</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="w"> </span><span class="err">limi</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">correspo</span><span class="kc">n</span><span class="err">di</span><span class="kc">n</span><span class="err">g</span><span class="w"> </span><span class="err">ra</span><span class="kc">n</span><span class="err">ges</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="err">dica</span><span class="kc">te</span><span class="err">d</span><span class="w"> </span><span class="err">i</span><span class="kc">n</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">co</span><span class="kc">nf</span><span class="err">igura</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">f</span><span class="err">ile.</span><span class="w"> </span><span class="err">The</span><span class="w"> </span><span class="kc">f</span><span class="err">i</span><span class="kc">tness</span><span class="w"> </span><span class="kc">fun</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">Ta</span><span class="kc">n</span><span class="err">imo</span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">similari</span><span class="kc">t</span><span class="err">y</span><span class="w"> </span><span class="err">(s</span><span class="kc">tan</span><span class="err">dard</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="err">all</span><span class="w"> </span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">gerpri</span><span class="kc">nt</span><span class="w"> </span><span class="err">represe</span><span class="kc">ntat</span><span class="err">io</span><span class="kc">ns</span><span class="err">)</span><span class="w"> </span><span class="err">applied</span><span class="w"> </span><span class="kc">t</span><span class="err">o</span><span class="w"> </span><span class="err">ECFP</span><span class="mi">4</span><span class="w"> </span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">gerpri</span><span class="kc">nts</span><span class="err">.</span><span class="w"> </span><span class="err">The</span><span class="w"> </span><span class="kc">tar</span><span class="err">ge</span><span class="kc">t</span><span class="p">,</span><span class="w"> </span><span class="err">Trogli</span><span class="kc">ta</span><span class="err">zo</span><span class="kc">ne</span><span class="p">,</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ied</span><span class="w"> </span><span class="err">by</span><span class="w"> </span><span class="err">i</span><span class="kc">ts</span><span class="w"> </span><span class="err">SMILES</span><span class="w"> </span><span class="err">represe</span><span class="kc">ntat</span><span class="err">io</span><span class="kc">n</span><span class="err">.</span><span class="w"> </span><span class="err">Fi</span><span class="kc">nall</span><span class="err">y</span><span class="p">,</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">molecular</span><span class="w"> </span><span class="err">represe</span><span class="kc">ntat</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">(`ECFP</span><span class="mi">4</span><span class="w"> </span><span class="kc">f</span><span class="err">i</span><span class="kc">n</span><span class="err">gerpri</span><span class="kc">nts</span><span class="err">`)</span><span class="w"> </span><span class="kc">f</span><span class="err">or</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">surroga</span><span class="kc">te</span><span class="w"> </span><span class="err">model</span><span class="w"> </span><span class="err">a</span><span class="kc">n</span><span class="err">d</span><span class="w"> </span><span class="kc">t</span><span class="err">he</span><span class="w"> </span><span class="err">acquisi</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="kc">fun</span><span class="err">c</span><span class="kc">t</span><span class="err">io</span><span class="kc">n</span><span class="w"> </span><span class="err">(`Pos</span><span class="kc">ter</span><span class="err">ior</span><span class="w"> </span><span class="err">Mea</span><span class="kc">n</span><span class="err">`)</span><span class="w"> </span><span class="err">are</span><span class="w"> </span><span class="err">also</span><span class="w"> </span><span class="err">speci</span><span class="kc">f</span><span class="err">ied.</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+
+        <div class="related-pages">
+
+
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Jonas Verhellen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+
+          </div>
+          <div class="right-details">
+
+          </div>
+        </div>
+
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+
+
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Fingerprint Rediscovery</a><ul>
+<li><a class="reference internal" href="#the-command-line">The Command Line</a></li>
+<li><a class="reference internal" href="#the-configuration-file">The Configuration File</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+
+
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=58f5e731"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>
