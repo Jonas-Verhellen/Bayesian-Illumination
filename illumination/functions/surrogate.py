@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 from rdkit.Chem import rdFingerprintGenerator
 
-from botorch import fit_gpytorch_model
+from botorch.fit import fit_gpytorch_model
 from gpytorch.distributions import MultivariateNormal
 from gpytorch.kernels import ScaleKernel
 from gpytorch.likelihoods import GaussianLikelihood
