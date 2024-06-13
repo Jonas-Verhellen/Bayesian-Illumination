@@ -19,7 +19,7 @@ After installing the software and running the tests, a basic usage example of Ba
 This command will call the config file in `configs` and makes use of Hydra for command line overwrites. Hydra is a framework for elegantly configuring complex applications. It allows you to compose your configuration dynamically, enabling you to overwrite any part of the configuration through the command line.
 
 Installing
-==========
+----------------------
 
 Download the source code from Github to your local machine and create the environment from the `bayesian_illumination.yml` file:
 
@@ -40,7 +40,7 @@ Verify that the new environment was installed correctly:
     conda env list
 
 Running the Tests
-=================
+----------------------
 
 To run the unit tests:
 
