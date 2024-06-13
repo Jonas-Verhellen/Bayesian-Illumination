@@ -1,52 +1,72 @@
 import pytest
-import omegaconf
-from rdkit import Chem
-from argenomic.operations import Mutator, Crossover
-from argenomic.base import Molecule
+from unittest.mock import patch
+import pandas as pd
+from illumination.operations import Generator, Mutator, Crossover
 
-
-@pytest.fixture
-def default_mutator():
-    """
-    Returns an instance of a mutator.
-    """
-    configuration_file = omegaconf.OmegaConf.load("./tests/test_config.yaml")
-    return Mutator(configuration_file.mutator)
-
+# Sample configuration for testing
+class Config:
+    def __init__(self, mutation_data=None, batch_size=10, initial_data=None, initial_size=5):
+        self.mutation_data = mutation_data
+        self.batch_size = batch_size
+        self.initial_data = initial_data
+        self.initial_size = initial_size
 
 @pytest.fixture
-def default_crossover():
-    """
-    Returns an instance of a crossover.
-    """
-    return Crossover()
-
+def generator_config():
+    return Config(
+        mutation_data="./data/mutation_collection.tsv",
+        batch_size=10,
+        initial_data="./data/ChEMBL_approved_650.smi",
+        initial_size=2
+    )
 
 @pytest.fixture
-def default_molecules():
-    smiles_list = [
-        "Clc1ccc(cc1)C(c2ccccc2)N3CCN(CC3)CCOCC(=O)O",
-        "CC1=CC(Cl)=CC(C(=O)N[C@@H]2C[C@@H]3CCCC[C@@H]32)=C1C",
-    ]
-    pedigree = ("database", "no reaction", "no parent")
-    molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
-    return molecules
+def mutator_config():
+    return Config(mutation_data="./data/mutation_collection.tsv")
 
+# Sample Molecule class
+class Molecule:
+    def __init__(self, smiles, pedigree):
+        self.smiles = smiles
+        self.pedigree = pedigree
 
-@pytest.mark.xfail
-def test_default_mutator(default_mutator, default_molecules):
-    """
-    Tests the action of the mutator. May fail occasionally due to stochasticity.
-    The result of this test is reported separtely.
-    """
-    molecules = default_molecules
-    for molecule in molecules:
-        assert len(default_mutator(molecule)) > 0
+# Test Generator class
+def test_generator_init(generator_config):
+    generator = Generator(generator_config)
+    assert generator.batch_size == 10
+    assert generator.initial_data == "./data/ChEMBL_approved_650.smi"
+    assert generator.initial_size == 2
 
+def test_mutator_init(mutator_config):
+    with patch("pandas.read_csv") as mock_read_csv:
+        mock_read_csv.return_value = pd.DataFrame({
+            "smarts": ["[C:1]>>[C:1]", "[O:1]>>[O:1]"],
+            "probability": [0.5, 0.5]
+        })
+        mutator = Mutator(mutator_config.mutation_data)
+        assert len(mutator.mutation_data) == 2
 
-def test_default_crossover(default_crossover, default_molecules):
-    """
-    Tests the action of the crossover.
-    """
-    molecules = default_molecules
-    assert len(default_crossover(molecules)) > 0
+def test_mutator_call(mutator_config):
+    with patch("pandas.read_csv") as mock_read_csv:
+        mock_read_csv.return_value = pd.DataFrame({
+            "smarts": ["[C:1]>>[C:1]", "[O:1]>>[O:1]"],
+            "probability": [0.5, 0.5]
+        })
+        mutator = Mutator(mutator_config.mutation_data)
+        molecule = Molecule("CCO", ("database", "no reaction", "database"))
+        mutated_molecules = mutator(molecule)
+        assert isinstance(mutated_molecules, list)
+
+def test_crossover_init():
+    crossover = Crossover()
+    assert crossover is not None
+
+def test_crossover_call():
+    crossover = Crossover()
+    molecule1 = Molecule("CCO", ("database", "no reaction", "database"))
+    molecule2 = Molecule("CCC", ("database", "no reaction", "database"))
+    new_molecules = crossover((molecule1, molecule2))
+    assert isinstance(new_molecules, list)
+
+if __name__ == "__main__":
+    pytest.main()

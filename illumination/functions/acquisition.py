@@ -144,7 +144,7 @@ class Upper_Confidence_Bound(BO_Acquisition):
             None
         """
         for molecule in molecules:
-            molecule.acquisition_value = molecule.predicted_fitnessn + sqrt(self.beta) * molecule.predicted_uncertainty
+            molecule.acquisition_value = molecule.predicted_fitness + sqrt(self.beta) * molecule.predicted_uncertainty
         return molecules
 
 
