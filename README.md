@@ -13,9 +13,6 @@
 
 [Overview](#overview) | [Getting Started](#getting-started) | [Documentation](https://github.com/Jonas-Verhellen/Bayesian-Illumination) | [Paper](https://arxiv.org) | [Benchmarks](https://github.com/Jonas-Verhellen/Bayesian-Illumination)
 
-## Getting Started
-
-The easiest way to use GB-BI is to clone this repository and install the included conda environment.
 
 ## Overview
 
@@ -33,6 +30,12 @@ Standard quality-diversity (QD) and Bayesian optimisation (BO) libraries do not 
 * **GAUCHE:** a [Gaussian process framework](https://github.com/leojklarner/gauche) for chemistry, providing more than 30 bespoke kernels for small molecules, proteins and chemical reactions.
 
 For the mutatations, crossovers, structural filters and physicochemical descriptors, we rely on [RDKit](https://github.com/rdkit/rdkit). The structural filters are based on a set of [scripts](https://github.com/PatWalters/rd_filters) provided by Patrick Walters. The graph-based mutations and crossovers are inspired by Jan H. Jensen's graph-based genetic algorithm ([GB-GA](https://github.com/jensengroup/GB_GA)). Ideas regarding the application of acquisition functions and Bayesian optimsation to quality-diversity methods (and MAP-Elites specifically) were spurred on by the publication of the [BOP-Elites algorithm](https://arxiv.org/abs/2005.04320).
+
+## Getting Started
+
+The easiest way to use GB-BI is to clone this repository and install the included conda environment.
+
+## Features and Settings
 
 ### Fitness Functions
 
