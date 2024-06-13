@@ -2,7 +2,7 @@ Core Functionality
 ===================
 .. include:: _toctree.rst
 
-*Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible. We provide a modular codebase, novel benchmarks, and extensive documentation. In this section of the documentation, we discuss the core functionality of GB-BI in terms of fitness functions, molecular representations, acquisition functions, physicochemical descriptors, and structural filters. For practical considerations and specific configuration file settings, please see the tutorials.
+**Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible. We provide a modular codebase, novel benchmarks, and extensive documentation. In this section of the documentation, we discuss the core functionality of GB-BI in terms of fitness functions, molecular representations, acquisition functions, physicochemical descriptors, and structural filters. For practical considerations and specific configuration file settings, please see the tutorials.
 
 Fitness Functions
 -----------------
@@ -74,7 +74,7 @@ Acquisition functions are heuristics employed to evaluate the potential of candi
 Physicochemical Archive
 ----------------------
 
-In GB-BI, and in GB-EPI before it, quality-diversity is ensured by dividing small-molecule chemical space into a grid of niches based on physicochemical properties. In practical terms, users can choose their own features of interest (using at least 2 and no more than 6 descriptors is advised), and define relevant ranges of variation to construct a feature space. If, for instance, a user wants to find medicinally relevant molecules in chemical space, they could construct a feature space based on physicochemical properties like lipophilicity and molecular mass, and practical concerns like synthetic accessibility. The chosen ranges in which to explore these features can be used to specify  a desired subset of chemical space in which to generate new molecules. GB-BI supports all descriptors from a selection of common RDKit modules.
+Users choose their own features of interest and define relevant ranges of variation to construct a feature space. If, for instance, a user wants to find medicinally relevant molecules in chemical space, they could construct a feature space based on physicochemical properties like lipophilicity and molecular mass. The chosen ranges in which to explore these features can be used to specify  a desired subset of chemical space in which to generate new molecules. GB-BI supports all descriptors from a selection of common RDKit modules.
 
 .. list-table::
    :header-rows: 1
@@ -82,11 +82,11 @@ In GB-BI, and in GB-EPI before it, quality-diversity is ensured by dividing smal
    * - **Module**
      - **Description**
    * - **AllChem**
-     - Includes a variety of functions for molecular operations and descriptor calculations.
+     - Includes a variety of functions for molecular operations and calculations.
    * - **Crippen**
      - Contains methods for calculating logP and molar refractivity.
    * - **Lipinski**
-     - Implements rules and functions related to Lipinski's rule of five for evaluating druglikeness.
+     - Implements rules and functions related to Lipinski's rule of five for druglikeness.
    * - **Descriptors**
      - Provides a comprehensive set of molecular descriptors.
    * - **rdMolDescriptors**
@@ -96,8 +96,6 @@ Structural Filters
 ----------------------
 
 To rule out unwanted and potentially toxic molecules, we use functional group knowledge from the ChEMBL database and a combination of ADME property calculations. We remove undesirable compounds before they enter the evaluation step of the algorithm. Removing these compounds at an early stage makes the algorithm more efficient, increases the predictive value of the final outcome, and significantly decreases overall processing time. Specifically, we filter out molecules that contain macrocycles, fail at Veber's rule, or raise structural alerts.
-#### Alert Sets and Number of Alerts
-
 .. list-table::
    :header-rows: 1
 
