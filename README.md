@@ -12,7 +12,7 @@
 [![License: APGL](https://img.shields.io/github/license/daq-tools/wireviz-web)](https://opensource.org/license/agpl-v3)
 
 
-**Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase, novel benchmarks, and extensive documentation.
+**Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. In addition to outperforming both deep generative models and standard genetic algorithms, GB-BI also generates a larger diversity of high-scoring molecules than a standard quality-diversity methods. In this repo, we provide a modular codebase, novel benchmarks, and extensive documentation for GB-BI.
 
 [Overview](#overview) | [Getting Started](#getting-started) | [Documentation](https://jonas-verhellen.github.io/Bayesian-Illumination/index.html#)| [Paper](https://arxiv.org) | [Benchmarks](https://github.com/Jonas-Verhellen/Bayesian-Illumination)
 
@@ -46,7 +46,7 @@ This command will call the config file in `configuration` folder and makes use o
 
 As shown in this example, to change the fitness function to the Guacamol multiproperty objective for Osimertinib and to change the acquistion function to the expected improvement (EI) it suffices to add keywords to the call in the command line. For a more in-depth disscussion on configuration files, please consult the tutorials suppied with the documentation. 
 
-## Efficiency
+## Optimisation Efficiency
 
 Recently, it has been asserted that to progress the research field, novel generative molecular models must demonstrate a clear advantage over genetic algorithms. Across various molecular optimisation tasks from independent benchmark suites, **Bayesian Illumination consistently achieves state-of-the-art results**. This is illustrated in the plot below, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs for Bayesian Illumination (GB-GI), a quality-diversity algorithms (GB-EPI), two genetic algorithms (GB-GA, JANUS) and one deep generative model (REINVENT).
 
