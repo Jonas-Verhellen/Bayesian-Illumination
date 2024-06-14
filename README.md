@@ -56,7 +56,7 @@ Recently, it has been asserted that to progress the research field, novel genera
   </a>
 </p>
 
-Bayesian Illumination's superior performance is illustrated in the plot above, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs of Bayesian Illumination (GB-GI), a standard quality-diversity algorithm (GB-EPI), a standard genetic algorithms (GB-GA), a parrallel-tempered genetic algorithm (JANUS) and a representative deep generative model (REINVENT).
+Bayesian Illumination's superior performance is illustrated in the plot above, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs of Bayesian Illumination (GB-GI), a standard quality-diversity algorithm (GB-EPI), a standard genetic algorithms (GB-GA), a parallel-tempered genetic algorithm (JANUS) and a representative deep generative model (REINVENT).
 
 ## Features and Settings
 
