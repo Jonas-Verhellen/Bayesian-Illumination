@@ -44,7 +44,7 @@ This command will call the config file in `configuration` folder and makes use o
 
     python illuminate.py fitness.type=Guacamol fitness.target=osimertinib_mpo acquisition.type=EI
 
-As shown in this example, to change the fitness function to the Guacamol multiproperty objective for Osimertinib and to change the acquistion function to the expected improvement (EI) it suffices to add keywords to the call in the command line. For a more in-depth disscussion on configuration files, please consult the tutorials suppied with the documentation. 
+As shown in this example, to change the fitness function to the Guacamol multiproperty objective for Osimertinib and to change the acquistion function to the expected improvement (EI) it suffices to add keywords to the call in the command line. 
 
 ## Optimisation Efficiency
 
@@ -59,6 +59,8 @@ Recently, it has been asserted that to progress the research field, novel genera
 Bayesian Illumination's superior performance is illustrated in the plot above, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs of Bayesian Illumination (GB-GI), a standard quality-diversity algorithm (GB-EPI), a standard genetic algorithms (GB-GA), a parrallel-tempered genetic algorithm (JANUS) and a representative deep generative model (REINVENT).
 
 ## Features and Settings
+
+The GB-BI core functionality covers a plethora of fitness functions, molecular representations, acquisition functions, physicochemical descriptors, and structural filters. A brief overview is provide here, a comprehensive overview can be found in the documentation and in-depth paractical disscussions on the different options for the configuration files are found in the tutorials suppied with the documentation. 
 
 ### Fitness Functions
 
