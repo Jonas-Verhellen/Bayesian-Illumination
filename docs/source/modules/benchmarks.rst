@@ -97,7 +97,7 @@ The Therapeutics Data Commons (TDC) provides docking molecule generation benchma
      - QD-Score 
      - Coverage 
    * - **GB-BI**
-     - **DRD3** 
+     - DRD3 
      - **-10.24 ± 0.10**
      - **-9.80 ± 0.12**
      - **0.75 ± 0.03**
@@ -115,7 +115,7 @@ The Therapeutics Data Commons (TDC) provides docking molecule generation benchma
      - N/A
      - N/A
    * - **GB-BI**
-     - **ABL1** 
+     - ABL1 
      - **-11.99 ± 0.44**
      - **-10.97 ± 0.37**
      - **-652.82 ± 4.39**
