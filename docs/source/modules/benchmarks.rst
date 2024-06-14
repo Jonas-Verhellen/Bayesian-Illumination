@@ -12,9 +12,10 @@ In recent years, several open-source benchmarking suites have emerged for the de
 Molecular Similarity
 ---------------------
 
-GuacaMol features several molecule rediscovery tasks wherein the fitness of a generated molecule is evaluated based on the Tanimoto similarity between the generated molecule and the target molecule, determined by their respective extended-connectivity fingerprints. We opted for the most challenging of these tasks, rediscovering Troglitazone (an antidiabetic compound), to assess and quantify the optimisation efficacy of a comprehensive list of generative models for small molecules: a deep generative molecular model, two types of genetic algorithms, a quality-diversity method, and Bayesian Illumination.To enhance the discriminative capability of this task, we impose a maximum limit of 2500 fitness function evaluations.
+GuacaMol features several molecule rediscovery tasks wherein the fitness of a generated molecule is evaluated based on the Tanimoto similarity between the generated molecule and the target molecule, determined by their respective extended-connectivity fingerprints.
 
 .. list-table:: 
+   :widths: 50 50 50
    :header-rows: 1
 
    * - Algorithm
@@ -36,6 +37,7 @@ GuacaMol features several molecule rediscovery tasks wherein the fitness of a ge
      - 0.66 ± 0.08
      - 0.60 ± 0.04
 
+We opted for the most challenging of these tasks, rediscovering Troglitazone (an antidiabetic compound), to assess and quantify the optimisation efficacy of a comprehensive list of generative models for small molecules: a deep generative molecular model, two types of genetic algorithms, a quality-diversity method, and Bayesian Illumination.To enhance the discriminative capability of this task, we impose a maximum limit of 2500 fitness function evaluations.
 
 Power Conversion Efficiency
 ----------------------------
@@ -83,5 +85,70 @@ Protein Binding Affinity
 ----------------------------
 
 The Therapeutics Data Commons (TDC) provides docking molecule generation benchmarks which evaluate the theoretical binding affinity between small molecules and target proteins. Docking is widely used for virtual screening of compounds, as molecules with higher theoretical binding affinities are statistically more likely to have a higher bioactivity. To increase real-life relevance, we apply stringent structural and ADME filters to candidate molecules and modulate the docking results with a synthetic accessibility score (SAS), as suggested in the documentation, for the proposed small molecule. We select three different targets from the TDC benchmarking suite: a dopamine receptor (DRD3) implicated in schizophrenia and essential tremor syndrome, a tyrosine-protein kinase (ABL1) implicated in chronic myelogenous leukemia, and the epidermal growth factor receptor (EGFR) which has been strongly associated with a number of cancers, including lung cancer, glioblastoma, and epithelial tumors of the head and neck.
+
+.. list-table:: 
+   :widths: 35 35 35 35 35 35
+   :header-rows: 1
+
+   * - Algorithm
+     - Protein Target 
+     - Minimum Docking 
+     - Mean Docking 
+     - QD-Score 
+     - Coverage 
+   * - **GB-BI**
+     - **DRD3** 
+     - **-10.24 ± 0.10**
+     - **-9.80 ± 0.12**
+     - **0.75 ± 0.03**
+     - **60.4 ± 1.2**
+   * - GB-EPI
+     - DRD3 
+     - -10.10 ± 0.15
+     - -9.72 ± 0.20
+     - 0.72 ± 0.02
+     - 58.7 ± 1.4
+   * - GB-GA
+     - DRD3 
+     - -9.60 ± 0.05
+     - -9.20 ± 0.10
+     - N/A
+     - N/A
+   * - **GB-BI**
+     - **ABL1** 
+     - **-11.99 ± 0.44**
+     - **-10.97 ± 0.37**
+     - **-652.82 ± 4.39**
+     - **45.11 ± 1.54**
+   * - GB-EPI
+     - ABL1 
+     - -11.10 ± 0.34
+     - -9.93 ± 0.06
+     - -443.82 ± 20.74
+     - 33.78 ± 2.14
+   * - GB-GA
+     - ABL1 
+     - -10.72 ± 0.24
+     - -9.53 ± 0.23
+     - N/A
+     - N/A
+   * - **GB-BI**
+     - EGFR 
+     - **-12.22 ± 0.08**
+     - **-11.17 ± 0.11**
+     - **-674.63 ± 19.32**
+     - **46.67 ± 4.16**
+   * - GB-EPI
+     - EGFR 
+     - -11.06 ± 0.07
+     - -10.01 ± 0.15
+     - -461.80 ± 20.24
+     - 35.11 ± 1.68
+   * - GB-GA
+     - EGFR 
+     - -10.85 ± 0.32
+     - -9.69 ± 0.23
+     - N/A
+     - N/A
 
 The results of the protein binding tasks for three independent runs of GB-BI, GB-EPI, and GB-GA are presented in the table above. GB-BI consistently outperforms both GB-EPI and GB-GA across all three tasks, achieving superior results in terms of both the minimum obtained docking score and the mean docking score for the 100 best compounds at the end of optimization for each algorithm. To evaluate the quality-diversity effectiveness of GB-BI and GB-EPI, we calculate the QD-score (the sum of all fitness values of the molecules present in the archive at the last generation) and the percentage of archive niches occupied by a molecule, known as archive coverage. Since GB-GA is not a quality-diversity algorithm, we do not calculate the QD-score or archive coverage for it. The QD-score is a widely used quality-diversity measure that assesses an algorithm's ability to populate its archive with diverse yet high-performing solutions.
