@@ -68,6 +68,8 @@ GB-BI provides three classes of fitness functions out-of-the-box: fingerprint-ba
 
 * **Fingerprint-Based Rediscovery:** A lightweight task focused on molecule rediscovery where the fitness of a molecule is the Tanimoto similarity to the target molecule, based on their respective extended-connectivity fingerprints. Implementation based on Gaucamol.
 * **Descriptor-Based Rediscovery:**  An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is the conformer-aggregated similarity to the target molecule, based on their respective descriptors (USRCAT or Zernike).
+* **Guacamol Benchmarks:** These tasks optimise molecules to score highly on the GuacaMol task provided by the TDC oracle: molecular properties, molecular similarity, drug rediscovery, isomers, MPOs, median molecule and a few others.
+* **Organic Photovoltaics:** These tasks focus on the design of small organic donor molecules with optimal power conversion efficiency, based on single point GFN2-xTB calculations distilled through an autoML model provided by the Tartarus benchmarking suite.
 * **SAS-Modulated Docking Scores:** A computationally intensive task, utilising docking methods which evaluate the theoretical affinity between a small molecule and a target protein. To avoid pure exploitation of the docking method, the scores are modulated by the synthetic accesibility of the small molecule.
 
 ### Molecular Representations
