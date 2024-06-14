@@ -19,7 +19,7 @@ GB-BI provides five classes of fitness functions out-of-the-box: fingerprint-bas
    * - **Descriptor Rediscovery**
      - An alternative molecule rediscovery task, with intermediate computational expense, where the fitness of a generated molecule is defined as the conformer-aggregated similarity to the target molecule. Conformer similarity is based on either USRCAT or Zernike descriptors.
    * - **Guacamol Benchmarks**
-     - These tasks optimise molecules to score highly on the GuacaMol task provided by the TDC oracle: molecular properties, molecular similarity, drug rediscovery, isomers, MPOs, median molecule and a few others (valsartan_smarts, deco_hop, scaffold_hop).
+     - These tasks optimise molecules to score highly on the GuacaMol task provided by the TDC oracle: molecular properties, molecular similarity, drug rediscovery, isomers, MPOs, median molecule and a few others.
    * - **Organic Photovoltaics**
      - These tasks focus on the design of small organic donor molecules with optimal power conversion efficiency, based on single point GFN2-xTB calculations distilled through an autoML model provided by the Tartarus benchmarking suite.
    * - **SAS-Modulated Docking Scores**
@@ -96,6 +96,7 @@ Structural Filters
 ----------------------
 
 To rule out unwanted and potentially toxic molecules, we use functional group knowledge from the ChEMBL database and a combination of ADME property calculations. We remove undesirable compounds before they enter the evaluation step of the algorithm. Removing these compounds at an early stage makes the algorithm more efficient, increases the predictive value of the final outcome, and significantly decreases overall processing time. Specifically, we filter out molecules that contain macrocycles, fail at Veber's rule, or raise structural alerts.
+
 .. list-table::
    :header-rows: 1
 
