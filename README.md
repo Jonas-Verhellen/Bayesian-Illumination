@@ -48,7 +48,7 @@ As shown in this example, to change the fitness function to the Guacamol multipr
 
 ## Optimisation Efficiency
 
-Recently, it has been asserted that to progress the research field, novel generative molecular models must demonstrate a clear advantage over genetic algorithms. Across various molecular optimisation tasks from independent benchmark suites, **Bayesian Illumination consistently achieves state-of-the-art results**. This is illustrated in the plot below, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs for Bayesian Illumination (GB-GI), a quality-diversity algorithms (GB-EPI), two genetic algorithms (GB-GA, JANUS) and one deep generative model (REINVENT).
+Recently, it has been asserted that to progress the research field, novel generative molecular models must demonstrate a clear advantage over genetic algorithms. Across various molecular optimisation tasks from independent benchmark suites, Bayesian Illumination consistently achieves state-of-the-art results. According to an analysis detailed in the paper, GB-BI is an order of magnitude more efficient than a standard quality-diversity algorithm and **two orders of magnitude more efficient than a standard genetic algorithm**. 
 
 <p align="center">
   <a href="[https://github.com/Jonas-Verhellen/Bayesian-Illumination]">
@@ -56,6 +56,7 @@ Recently, it has been asserted that to progress the research field, novel genera
   </a>
 </p>
 
+Bayesian Illumination's superior performance is illustrated in the plot above, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs for Bayesian Illumination (GB-GI), a standard quality-diversity algorithm (GB-EPI), two genetic algorithms (GB-GA, JANUS) and one deep generative model (REINVENT).
 
 ## Features and Settings
 
