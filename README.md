@@ -36,7 +36,16 @@ For the mutatations, crossovers, structural filters and physicochemical descript
 
 ## Getting Started
 
-The easiest way to use GB-BI is to clone this repository and install the included conda environment.
+After installing the software and running the tests, a basic usage example of Bayesian Illumination (i.e. the rediscovery of Troglitazone) can be called upon in the following manner:
+
+    python illuminate.py
+
+This command will call the config file in `configuration` folder and makes use of [Hydra](https://hydra.cc/docs/intro/) for command line overwrites. Hydra is an open-source framework, developed and maintained by Meta Research, that simplifies the development of research and other complex applications. The key feature is the ability to dynamically create a hierarchical configuration by composition and override it through config files and the command line. 
+
+For in-depth examples of how to use the command line for GB-BI or how to change the config files, please consult the tutorials suppied with the documentation. For example, to change the fitness function to the Guacamol multiproperty objective for Osimertinib and to change the acquistion function to the expected improvement (EI) it suffices to add keywords to the call in the command line.
+
+    python illuminate.py fitness.type=Guacamol fitness.target=osimertinib_mpo acquisition.type=EI
+
 
 ## Features and Settings
 
@@ -99,6 +108,20 @@ Acquisition functions are heuristics employed to evaluate the potential of candi
 * **Upper Confidence Bound (UCB):** The upper confidence bound balances exploration and exploitation based on a confidence boundary derived from the surrogate fitness model. <!--The upper confidence bound is defined as $\text{UCB}(x) = \mu(x) + \beta \sigma(x)$, where $\mu(\cdot)$ and $\sigma(\cdot)$ are respectively the posterior mean and variance of the surrogate fitness model, $x$ denotes the candidate solution, and  $\beta$ is a hyperparameter representing confidence in the surrogate model.-->
 * **Expected Improvement (EI):** The expected improvement considers both the probability of improving on the current solutions and the magnitude of the predicted improvement. <!--The expected improvement is defined as $\text{EI}(x) = \sigma(x) \ h\left((\mu(x) - y)/\sigma(x)\right)$, where $x$ denotes the candidate solution, $\mu(\cdot)$ and $\sigma(\cdot)$ are respectively the posterior mean and variance of the surrogate fitness model, and $y$ is the best fitness function value observed so far. In the above equation, the helper function $h(\cdot)$ is defined as $h(z) = \phi(z) + z \Phi(z)$ where $\phi$ and $\Phi$ are respectively the probability density function and the cumulative density function of the Normal distribution.-->
 * **Numerically Stable log(EI) (logEI):** A numerically stable variant of the logarithm of the expected improvement (logEI), which was was recently introduced to alleviate the vanishing gradient problems sometimes encountered in the classical version of EI. <!-- and is defined as $\text{logEI}(x) = \text{log}_h\left((\mu(x) - y)/\sigma(x)\right) + \text{log}(\sigma(x))$ in which the helper function $\text{log}_h(\cdot)$ is a numerical stable implementation of the composite function $\log (h)$.-->
+
+## Installation
+
+Download the source code from Github to your local machine and create the environment from the `bayesian_illumination.yml` file:
+
+    conda env create -f bayesian_illumination.yml
+
+Activate the new environment:
+
+    conda activate bayesian-illumination
+
+Verify that the installion was correct by running the unit tests:
+
+    pytest ./tests
 
 ## Contributions
 
