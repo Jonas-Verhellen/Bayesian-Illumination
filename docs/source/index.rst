@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Graph-Based Bayesian Illumination
+Bayesian Illumination
 ==================================
 
 **Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase, novel benchmarks, and extensive documentation. Details on the theoretical foundation and the general motivation behind this approach can be found in the `preprint (ChemrXiv 2024) <https://arxiv.org/>`_.
