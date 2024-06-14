@@ -16,7 +16,8 @@ After installing the software and running the tests, a basic usage example of Ba
 
     python illuminate.py
 
-This command will call the config file in `configs` and makes use of Hydra for command line overwrites. Hydra is a framework for elegantly configuring complex applications. It allows you to compose your configuration dynamically, enabling you to overwrite any part of the configuration through the command line.
+This command will call the config file in `configs` and makes use of Hydra for command line overwrites. Hydra is an open-source Python framework, developed and maintained by Meta Research, that simplifies the development of research and other complex applications. The key feature is the ability to dynamically create a hierarchical configuration by composition and override it through config files and the command line. For examples of how to use the command line for GB-BI or how to change the config files, please consult the tutorials suppied with this documentation.
+
 
 Installing
 ----------------------
