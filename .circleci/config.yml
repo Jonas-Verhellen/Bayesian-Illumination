@@ -27,7 +27,7 @@ jobs:
           name: Install Conda dependencies
           command: |
             conda env create -f bayesian_illumination.yml
-            echo "source activate bayesian_illumination" >> ~/.bashrc
+            echo "source activate bayesian-illumination" >> ~/.bashrc
             source ~/.bashrc
       - run:
           name: Build an artifact
@@ -46,7 +46,7 @@ jobs:
           name: Install Conda dependencies
           command: |
             conda env create -f bayesian_illumination.yml
-            echo "source activate bayesian_illumination" >> ~/.bashrc
+            echo "source activate bayesian-illumination" >> ~/.bashrc
             source ~/.bashrc
       - run:
           name: Deploy
