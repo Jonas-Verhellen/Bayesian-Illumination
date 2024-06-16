@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Graph-Based Bayesian Illumination
+Bayesian Illumination
 ==================================
 
 **Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. We provide a modular codebase, novel benchmarks, and extensive documentation. Details on the theoretical foundation and the general motivation behind this approach can be found in the `preprint (ChemrXiv 2024) <https://arxiv.org/>`_.
@@ -30,23 +30,13 @@ The main novelty of Bayesian illumination compared to a previous quality diversi
 
 Efficiency
 ================
+Recently, it has been asserted that to progress the research field, novel generative molecular models must demonstrate a clear advantage over genetic algorithms. In response, we present Bayesian Illumination, a novel generative model for small molecules based on Gaussian processes and quality-diversity methods. Across various molecular optimisation tasks from independent benchmark suites, **Bayesian Illumination consistently achieves state-of-the-art results**. This is illsutrated in the plot below, which shows mean values and standard errors of the maximum optimistation score (Tanimoto similiarty to Troglitazone) in function of the cumulative amount of function calls. Data obtained in ten independent runs for Bayesian Illumination (GB-GI), a quality-diversity algorithms (GB-EPI), two genetic algorithms (GB-GA, JANUS) and one deep generative model (REINVENT).
+
+.. image:: ../../imgs/rediscovery.png
+    :width: 100 %
+    :alt: Efficiency
+    :align: center
 
 .. include:: _toctree.rst
 
-
-References
-==================
-
-.. _bibliography:
-
-[1] Rogers, D. and Hahn, M., 2010. `Extended-connectivity fingerprints. <https://pubs.acs.org/doi/abs/10.1021/ci100050t>`_ Journal of Chemical Information and Modeling, 50(5), pp.742-754.
-
-[2] Jamasb, A., Viñas Torné, R., Ma, E., Du, Y., Harris, C., Huang, K., Hall, D., Lió, P. and Blundell, T., 2022. `Graphein-a Python library for geometric deep learning and network analysis on biomolecular structures and interaction networks <https://proceedings.neurips.cc/paper_files/paper/2022/hash/ade039c1db0391106a3375bd2feb310a-Abstract-Conference.html>`_. Advances in Neural Information Processing Systems, 35, pp.27153-27167.
-
-[3] Weininger, D., 1988. `SMILES, a chemical language and information system. 1. Introduction to methodology and encoding rules. <https://pubs.acs.org/doi/pdf/10.1021/ci00057a005>`_ Journal of Chemical Information and Computer Sciences, 28(1), pp.31-36.
-
-[4] Krenn, M., Häse, F., Nigam, A., Friederich, P. and Aspuru-Guzik, A., 2020. `Self-referencing embedded strings (SELFIES): A 100% robust molecular string representation <https://iopscience.iop.org/article/10.1088/2632-2153/aba947/meta>`_. Machine Learning: Science and Technology, 1(4), p.045024.
-
-[5] Probst, D., Schwaller, P. and Reymond, J.L., 2022. `Reaction classification and yield prediction using the differential reaction fingerprint DRFP <https://pubs.rsc.org/en/content/articlehtml/2022/dd/d1dd00006c>`_. Digital Discovery, 1(2), pp.91-97.
-
-[6] Schwaller, P., Probst, D., Vaucher, A.C., Nair, V.H., Kreutter, D., Laino, T. and Reymond, J.L., 2021. `Mapping the space of chemical reactions using attention-based neural networks <https://www.nature.com/articles/s42256-020-00284-w>`_. Nature Machine Intelligence, 3(2), pp.144-152.
+GB-BI achieves rediscovery of Troglitazone at an average of 629 fitness function calls. According to the literature, GB-EPI and GB-GA make use of an average of 14,258 and 24,216 fitness function calls, respectively, for a single optimisation run of this task. Note that due to stagnation issues, GB-GA faces requires at least 3 independent optimisation runs (approximately 72,000 fitness function evaluations) to rediscover Troglitazone with a 99% success rate.  Taking stagnation issues and multiple optimisation runs into account, we conclude that (for this task) **GB-BI is 22.67 times more efficient than GB-EPI** and **115.50 times more efficient than GB-GA**. In addition, it is worth noting that Bayesian Illumination also generates a larger diversity of high-scoring molecules than a standard quality-diversity method without Bayesian optimisation.
