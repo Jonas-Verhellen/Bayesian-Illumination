@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            source activate bayesian_illumination
+            source activate bayesian-illumination
             pytest tests
 
   build:
