@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Build an artifact
           command: |
-            source activate bayesian_illumination
+            source activate bayesian-illumination
             touch example.txt
       - store_artifacts:
           path: example.txt
@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            source activate bayesian_illumination
+            source activate bayesian-illumination
             # Add your deployment commands here
             echo 'Deploy script would run here'
 
