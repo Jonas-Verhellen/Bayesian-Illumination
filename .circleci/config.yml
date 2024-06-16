@@ -1,0 +1,68 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: continuumio/miniconda3:latest  # Use a Conda-compatible image
+    steps:
+      - checkout
+      - run:
+          name: Install Conda dependencies
+          command: |
+            conda env create -f bayesian_illumination.yml
+            echo "source activate bayesian-illumination" >> ~/.bashrc
+            source ~/.bashrc
+      - run:
+          name: Run tests
+          command: |
+            source activate bayesian-illumination
+            pytest tests
+
+  build:
+    docker:
+      - image: continuumio/miniconda3:latest  # Use a Conda-compatible image
+    steps:
+      - checkout
+      - run:
+          name: Install Conda dependencies
+          command: |
+            conda env create -f bayesian_illumination.yml
+            echo "source activate bayesian-illumination" >> ~/.bashrc
+            source ~/.bashrc
+      - run:
+          name: Build an artifact
+          command: |
+            source activate bayesian-illumination
+            touch example.txt
+      - store_artifacts:
+          path: example.txt
+
+  deploy:
+    docker:
+      - image: continuumio/miniconda3:latest  # Use a Conda-compatible image
+    steps:
+      - checkout
+      - run:
+          name: Install Conda dependencies
+          command: |
+            conda env create -f bayesian_illumination.yml
+            echo "source activate bayesian-illumination" >> ~/.bashrc
+            source ~/.bashrc
+      - run:
+          name: Deploy
+          command: |
+            source activate bayesian-illumination
+            # Add your deployment commands here
+            echo 'Deploy script would run here'
+
+workflows:
+  example:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - test
+
