@@ -16,7 +16,8 @@ jobs:
           name: Run tests
           command: |
             source activate bayesian-illumination
-            pytest tests
+            cd tests
+            pytest
 
   build:
     docker:
