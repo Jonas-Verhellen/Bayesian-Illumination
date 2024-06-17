@@ -2,7 +2,7 @@ import sys
 from typing import List
 
 from illumination.functions.surrogate import String_Surrogate, Fingerprint_Surrogate
-from illumination.functions.fitness import Fingerprint_Fitness, Gaucamol_Fitness, USRCAT_Fitness, Zernike_Fitness, OVC_Fitness
+from illumination.functions.fitness import Fingerprint_Fitness, Gaucamol_Fitness, USRCAT_Fitness, Zernike_Fitness, OVC_Fitness, Docking_Fitness
 from illumination.functions.acquisition import Posterior_Mean, Upper_Confidence_Bound, Expected_Improvement, Log_Expected_Improvement
 
 from rdkit import Chem
@@ -116,6 +116,8 @@ class Fitness:
                 return Zernike_Fitness(config)
             case "OVC":
                 return OVC_Fitness(config)
+            case "Docking":
+                return Docking_Fitness(config)
             case _:
                 raise ValueError(f"{config.type} is not a supported fitness function type.")
 
