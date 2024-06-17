@@ -1,4 +1,5 @@
 import os
+import sys
 import math
 import hydra
 import torch
@@ -19,7 +20,12 @@ from rdkit.DataStructs.cDataStructs import TanimotoSimilarity
 from rdkit.Chem.rdMolDescriptors import GetUSRScore, GetUSRCAT, GetUSR
 
 rdBase.DisableLog("rdApp.error")
+from tdc import utils, Oracle
+from tdc.benchmark_group import docking_group
+utils.retrieve_benchmark_names('Docking_Group')
+group = docking_group(path='/home/jove/code/Argenomic-GP-main/data') # to be fixed
 
+sys.path.append(os.path.join(os.environ['CONDA_PREFIX'],'share','RDKit','Contrib'))
 
 class Fingerprint_Fitness:
     """
@@ -684,3 +690,51 @@ class OVC_Model(object):
         x = np.zeros((0,), dtype=np.int8)
         DataStructs.ConvertToNumpyArray(fp, x)
         return x
+
+
+class Docking_Fitness:
+    """
+    A strategy class for calculating the fitness of a molecule.
+    
+    Attributes:
+        pdb: The PDB ID of the target protein.
+        sa_mu: The mean value for the synthetic accessibility score.
+        sa_sigma: The standard deviation for the synthetic accessibility score.
+        benchmark: Benchmark data including the oracle function and other data.
+        oracle_fct: The oracle function used to evaluate the molecule.
+        data: Data related to the benchmark.
+        name: Name of the benchmark.
+    """
+    
+    def __init__(self, config) -> None:
+        """
+        Initializes the Docking_Fitness class with the provided configuration.
+        
+        Args:
+            config (Config): Configuration object containing target, max_calls, and other settings.
+        """
+        self.pdb = config.target
+        self.sa_mu = 2.230044  
+        self.sa_sigma = 0.6526308
+        self.benchmark = group.get(self.pdb, num_max_call=config.max_calls) 
+        self.oracle_fct = self.benchmark['oracle']
+        self.data = self.benchmark['data']
+        self.name = self.benchmark['name'] 
+        return None
+
+    def __call__(self, molecule) -> None:
+        """
+        Updates the fitness value of a molecule.
+        
+        Args:
+            molecule: A Molecule object with a SMILES string attribute.
+        
+        Returns:
+            Molecule: The input molecule object with updated fitness and synthetic accessibility score.
+        """
+        score = max(-self.oracle_fct(molecule.smiles), 0.0)
+        sa_score = sascorer.calculateScore(Chem.MolFromSmiles(molecule.smiles))
+        score = score * np.exp(-0.5 * np.power((sa_score - self.sa_mu) / self.sa_sigma, 2.0)) 
+        molecule.fitness = score
+        molecule.sa_score = sa_score
+        return molecule
