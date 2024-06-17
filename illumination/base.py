@@ -15,6 +15,7 @@ class Molecule:
         predicted_fitness: The predicted fitness score from the surrogate model.
         predicted_uncertainty: The uncertainty associated with the predicted fitness.
         acquisition_value: The value assigned by the acquisition function.
+        sa_score: The value assigned by the synthetic accessibility estimator.
     """
     smiles: str
     pedigree: Tuple[str, str, str]
@@ -24,7 +25,8 @@ class Molecule:
     predicted_fitness: int = 0
     predicted_uncertainty: int = 0
     acquisition_value: float = None
-
+    sa_score: float = 0.0
+    
 class Elite:
     """
     The Elite class represents a phenotypic elite molecule in the Bayesian Illumination algorithm.
