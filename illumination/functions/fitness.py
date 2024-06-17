@@ -23,7 +23,7 @@ rdBase.DisableLog("rdApp.error")
 from tdc import utils, Oracle
 from tdc.benchmark_group import docking_group
 utils.retrieve_benchmark_names('Docking_Group')
-group = docking_group(path='/home/jove/code/Argenomic-GP-main/data') # to be fixed
+group = docking_group(path='../../data') 
 
 sys.path.append(os.path.join(os.environ['CONDA_PREFIX'],'share','RDKit','Contrib'))
 
