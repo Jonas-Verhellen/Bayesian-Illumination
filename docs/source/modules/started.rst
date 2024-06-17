@@ -26,7 +26,7 @@ Download the source code from Github to your local machine and create the enviro
 
 .. code-block:: bash
 
-    conda env create -f bayesian_illumination.yml
+    conda env create -f bayesian-illumination.yml
 
 Activate the new environment:
 
