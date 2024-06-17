@@ -126,9 +126,9 @@ Acquisition functions are heuristics employed to evaluate the potential of candi
 
 ## Installation
 
-Download the source code from Github to your local machine and create the environment from the `bayesian_illumination.yml` file:
+Download the source code from Github to your local machine and create the environment from the `bayesian-illumination.yml` file:
 
-    conda env create -f bayesian_illumination.yml
+    conda env create -f bayesian-illumination.yml
 
 Activate the new environment:
 
