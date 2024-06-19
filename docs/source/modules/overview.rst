@@ -5,7 +5,7 @@ Core Functionality
 **Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible. We provide a modular codebase, novel benchmarks, and extensive documentation. In this section of the documentation, we discuss the core functionality of GB-BI in terms of fitness functions, molecular representations, acquisition functions, physicochemical descriptors, and structural filters. For practical considerations and specific configuration file settings, please see the tutorials.
 
 Fitness Functions
------------------
+------------------
 
 GB-BI provides five classes of fitness functions out-of-the-box: fingerprint-based rediscovery, descriptor-based rediscovery, and SAS-modulated docking scores. These fitness functions can and have been used as benchmark tools to probe the efficiency of generative models but also have direct practical applications. Additional fitness functions can easily be added to the codebase.
 
@@ -27,7 +27,7 @@ GB-BI provides five classes of fitness functions out-of-the-box: fingerprint-bas
 
 
 Representations
------------------
+--------------------
 
 GB-BI supports several molecular representations that are based on bit vectors or strings. These representations are used for the surrogate models using the Tanimoto kernel from GAUCHE. The string-based representations are turned into a bag-of-characters before being used in the kernel. Note that several of these vector representations are currently not natively supported by GAUCHE.
 
@@ -53,7 +53,7 @@ GB-BI supports several molecular representations that are based on bit vectors o
 
 
 Acquisition Functions
-----------------------
+-------------------------
 
 Acquisition functions are heuristics employed to evaluate the potential of candidate molecules based on their predicted fitness value and the associated uncertainty of a surrogate fitness model (i.e. the Gaussian process). A large literature exists on the topic of acquisition functions and their design. GB-BI supports several of the most well-known and often used acquisition functions.
 
@@ -72,7 +72,7 @@ Acquisition functions are heuristics employed to evaluate the potential of candi
      - A numerically stable variant of the logarithm of the expected improvement (logEI), which was recently introduced to alleviate the vanishing gradient problems.
 
 Physicochemical Archive
-----------------------
+-------------------------
 
 Users choose their own features of interest and define relevant ranges of variation to construct a feature space. If, for instance, a user wants to find medicinally relevant molecules in chemical space, they could construct a feature space based on physicochemical properties like lipophilicity and molecular mass. The chosen ranges in which to explore these features can be used to specify  a desired subset of chemical space in which to generate new molecules. GB-BI supports all descriptors from a selection of common RDKit modules.
 
