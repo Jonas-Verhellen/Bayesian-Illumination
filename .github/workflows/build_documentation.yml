@@ -28,6 +28,7 @@ jobs:
         run: |
           source $HOME/miniconda/etc/profile.d/conda.sh
           conda env create -f bayesian-illumination.yml
+          conda install -y pandoc sphinx sphinx_rtd_theme myst_parser nbsphinx sphinx_copybutton furo
           conda activate bayesian-illumination
 
       - name: Sphinx build
