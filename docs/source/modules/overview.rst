@@ -1,6 +1,5 @@
 Core Functionality
 ===================
-.. include:: _toctree.rst
 
 **Graph-Based Bayesian Illumination (GB-BI)** is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible. We provide a modular codebase, novel benchmarks, and extensive documentation. In this section of the documentation, we discuss the core functionality of GB-BI in terms of fitness functions, molecular representations, acquisition functions, physicochemical descriptors, and structural filters. For practical considerations and specific configuration file settings, please see the tutorials.
 
