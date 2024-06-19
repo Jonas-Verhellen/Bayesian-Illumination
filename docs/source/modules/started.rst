@@ -6,8 +6,6 @@
 Getting Started
 ================
 
-.. include:: _toctree.rst
-
 **Graph-Based Bayesian Illumination** (GB-BI) is an open-source software library that aims to make state-of-the-art, quality-diversity optimisation techniques infused with Bayesian optimisation easily accessible to scientific experts in medicinal chemistry and cheminformatics. The main novelty of Bayesian illumination compared to a previous quality diversity method for small molecule optimisation is the use of surrogate fitness and acquisition function calculations to inform the selection of a single molecule to be compared in direct evolutionary competition with the current occupant of the niche. 
 
 After installing the software and running the tests, a basic usage example of Bayesian Illumination (i.e. the rediscovery of Troglitazone) can be called upon in the following manner:
