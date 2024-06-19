@@ -5,7 +5,6 @@
 
 Benchmarks
 ==========
-.. include:: _toctree.rst
 
 In recent years, several open-source benchmarking suites have emerged for the de novo design of small molecules. Among the most prominent are GuacaMol, the Therapeutics Data Commons, and Tartarus. Drawing upon each of these benchmarking suites, we conduct three distinct numerical experiments that replicate various aspects of molecular design challenges in life and materials science. Specifically, we make use of a GuacaMol rediscovery task focused on molecular similarity, apply a Tartarus task aimed at designing efficient organic photovoltaics, and introduce an enhanced version of a Therapeutics Data Commons docking task. This task evaluates the theoretical binding affinity between a small molecule and a target protein while considering the synthetic accessibility of the candidate molecules.
 
