@@ -137,6 +137,10 @@ Activate the new environment:
 Verify that the installion was correct by running the unit tests:
 
     pytest ./tests
+
+## Reproducibility Note
+
+Key scripts to generate the main figures in the manuscript can be found in the paper-figures folder. The underlying hyperparameter sweep data for figures 3 and 4 can be reproduced using a Hydra sweep or obtained from the author upon reasonable request.   
     
 ## Contributions
 
