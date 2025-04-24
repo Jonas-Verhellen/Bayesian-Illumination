@@ -7,7 +7,6 @@
 </p>
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CodeFactor](https://www.codefactor.io/repository/github/jonas-verhellen/bayesian-illumination/badge/main)](https://www.codefactor.io/repository/github/jonas-verhellen/bayesian-illumination/overview/main)
 [![Docs](https://assets.readthedocs.org/static/projects/badges/passing-flat.svg)](https://jonas-verhellen.github.io/Bayesian-Illumination/)
 [![License: APGL](https://img.shields.io/github/license/daq-tools/wireviz-web)](https://opensource.org/license/agpl-v3)
 
