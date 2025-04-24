@@ -1,0 +1,1098 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>illumination.functions.fitness - GB-BI</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">GB-BI</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">GB-BI</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/overview.html">Core Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/benchmarks.html">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Fingerprint%20Rediscovery.html">Small Molecule Rediscovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../notebooks/Extending%20GB-GI.html">Adapting and Extending GB-GI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/base.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/fitness.html">Fitness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/surrogate.html">Surrogate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/mechanism.html">Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/operations.html">Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/acquisition.html">Acquisition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/illumination.html">Illumination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/infrastructure.html">Infrastructure</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for illumination.functions.fitness</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">hydra</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
+
+<span class="kn">from</span> <span class="nn">tdc</span> <span class="kn">import</span> <span class="n">Oracle</span>
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">complex128</span><span class="p">,</span> <span class="n">float64</span>
+<span class="kn">from</span> <span class="nn">numba.experimental</span> <span class="kn">import</span> <span class="n">jitclass</span>
+
+<span class="kn">from</span> <span class="nn">rdkit</span> <span class="kn">import</span> <span class="n">rdBase</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">AllChem</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">rdDistGeom</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">DataStructs</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem</span> <span class="kn">import</span> <span class="n">AllChem</span> <span class="k">as</span> <span class="n">Chem</span>
+<span class="kn">from</span> <span class="nn">rdkit.DataStructs.cDataStructs</span> <span class="kn">import</span> <span class="n">TanimotoSimilarity</span>
+<span class="kn">from</span> <span class="nn">rdkit.Chem.rdMolDescriptors</span> <span class="kn">import</span> <span class="n">GetUSRScore</span><span class="p">,</span> <span class="n">GetUSRCAT</span><span class="p">,</span> <span class="n">GetUSR</span>
+
+<span class="n">rdBase</span><span class="o">.</span><span class="n">DisableLog</span><span class="p">(</span><span class="s2">&quot;rdApp.error&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">tdc</span> <span class="kn">import</span> <span class="n">utils</span><span class="p">,</span> <span class="n">Oracle</span>
+<span class="kn">from</span> <span class="nn">tdc.benchmark_group</span> <span class="kn">import</span> <span class="n">docking_group</span>
+<span class="n">utils</span><span class="o">.</span><span class="n">retrieve_benchmark_names</span><span class="p">(</span><span class="s1">&#39;Docking_Group&#39;</span><span class="p">)</span>
+<span class="n">group</span> <span class="o">=</span> <span class="n">docking_group</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;../../data&#39;</span><span class="p">)</span> 
+
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;CONDA_PREFIX&#39;</span><span class="p">],</span><span class="s1">&#39;share&#39;</span><span class="p">,</span><span class="s1">&#39;RDKit&#39;</span><span class="p">,</span><span class="s1">&#39;Contrib&#39;</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Fingerprint_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">Fingerprint_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule based on its fingerprint similarity to a target molecule.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        fingerprint_type: The type of fingerprint representation used (e.g., ECFP4, ECFP6, FCFP4, FCFP6).</span>
+<span class="sd">        target: The target molecule as an RDKit Mol object.</span>
+<span class="sd">        target_fingerprint: The fingerprint of the target molecule.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the Fingerprint_Fitness object with the specified configuration.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule based on its fingerprint similarity to the target molecule.</span>
+<span class="sd">        get_fingerprint: Retrieves the fingerprint of a molecular graph based on the specified fingerprint type.</span>
+<span class="sd">        get_ECFP4: Generates the ECFP4 fingerprint for a molecular graph.</span>
+<span class="sd">        get_ECFP6: Generates the ECFP6 fingerprint for a molecular graph.</span>
+<span class="sd">        get_FCFP4: Generates the FCFP4 fingerprint for a molecular graph.</span>
+<span class="sd">        get_FCFP6: Generates the FCFP6 fingerprint for a molecular graph.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Fingerprint_Fitness object with the specified configuration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for the fitness calculation, including the target molecule and fingerprint type.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint_type</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">representation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_fingerprint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fingerprint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule based on its fingerprint similarity to the target molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule whose fitness value is to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            molecule: The molecule with an updated fitness value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">molecular_graph</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">))</span>
+        <span class="n">molecule_fingerprint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fingerprint</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint_type</span><span class="p">)</span>
+        <span class="n">fitness</span> <span class="o">=</span> <span class="n">TanimotoSimilarity</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_fingerprint</span><span class="p">,</span> <span class="n">molecule_fingerprint</span><span class="p">)</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">fitness</span>
+        <span class="k">return</span> <span class="n">molecule</span>
+
+<div class="viewcode-block" id="Fingerprint_Fitness.get_fingerprint">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness.get_fingerprint">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_fingerprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">:</span> <span class="n">Chem</span><span class="o">.</span><span class="n">Mol</span><span class="p">,</span> <span class="n">fingerprint_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the fingerprint of a molecular graph based on the specified fingerprint type.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The RDKit Mol object representing the molecule.</span>
+<span class="sd">            fingerprint_type: The type of fingerprint representation to use.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The fingerprint of the molecular graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">method_name</span> <span class="o">=</span> <span class="s2">&quot;get_&quot;</span> <span class="o">+</span> <span class="n">fingerprint_type</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not a supported fingerprint type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fingerprint_type</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Fingerprint_Fitness.get_ECFP4">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness.get_ECFP4">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ECFP4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">:</span> <span class="n">Chem</span><span class="o">.</span><span class="n">Mol</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the ECFP4 fingerprint for a molecular graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The RDKit Mol object representing the molecule.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The ECFP4 fingerprint of the molecular graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprint</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Fingerprint_Fitness.get_ECFP6">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness.get_ECFP6">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ECFP6</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">:</span> <span class="n">Chem</span><span class="o">.</span><span class="n">Mol</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the ECFP6 fingerprint for a molecular graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The RDKit Mol object representing the molecule.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The ECFP6 fingerprint of the molecular graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprint</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Fingerprint_Fitness.get_FCFP4">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness.get_FCFP4">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_FCFP4</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">:</span> <span class="n">Chem</span><span class="o">.</span><span class="n">Mol</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the FCFP4 fingerprint for a molecular graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The RDKit Mol object representing the molecule.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The FCFP4 fingerprint of the molecular graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprint</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">useFeatures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Fingerprint_Fitness.get_FCFP6">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Fingerprint_Fitness.get_FCFP6">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_FCFP6</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">:</span> <span class="n">Chem</span><span class="o">.</span><span class="n">Mol</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the FCFP6 fingerprint for a molecular graph.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The RDKit Mol object representing the molecule.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The FCFP6 fingerprint of the molecular graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprint</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">useFeatures</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Gaucamol_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Gaucamol_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">Gaucamol_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule, based on the Gaucamol benchmarks.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        target: The target molecule.</span>
+<span class="sd">        oracle: The oracle used for fitness evaluation.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the Gaucamol_Fitness object with the target molecule and the oracle.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Gaucamol_Fitness object with the target molecule and the oracle.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for the fitness calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oracle</span> <span class="o">=</span> <span class="n">Oracle</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule for which the fitness value needs to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oracle</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">molecule</span></div>
+
+
+
+<div class="viewcode-block" id="USR_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.USR_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">USR_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule,based on its USR descriptors.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the USR_Fitness object with the target molecule and configuration parameters.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        n_conformers: The number of conformers to generate for each molecule.</span>
+<span class="sd">        param: The parameters for embedding molecules.</span>
+<span class="sd">        target: The target molecule.</span>
+<span class="sd">        target_configuration: The embedded configuration of the target molecule.</span>
+<span class="sd">        target_usrcat: The USR descriptor of the target molecule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the USR_Fitness object with the target molecule and configuration parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for the fitness calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">conformers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">rdDistGeom</span><span class="o">.</span><span class="n">ETKDGv3</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">randomSeed</span> <span class="o">=</span> <span class="mh">0xFB0D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_configuration</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMolecule</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_usrcat</span> <span class="o">=</span> <span class="n">GetUSR</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule for which the fitness value needs to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">usrcat_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span><span class="p">)</span>
+        <span class="n">molecular_graph</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">)))</span>
+        <span class="n">conf_ids</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMultipleConfs</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">conf_id</span> <span class="ow">in</span> <span class="n">conf_ids</span><span class="p">:</span>
+            <span class="n">usrcat</span> <span class="o">=</span> <span class="n">GetUSR</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="n">confId</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">conf_id</span><span class="p">))</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">GetUSRScore</span><span class="p">(</span><span class="n">usrcat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_usrcat</span><span class="p">)</span>
+            <span class="n">usrcat_scores</span><span class="p">[</span><span class="n">conf_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">usrcat_scores</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">molecule</span></div>
+
+
+
+<div class="viewcode-block" id="USRCAT_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.USRCAT_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">USRCAT_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the USRCAT_Fitness object with the target molecule and configuration parameters.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        n_conformers: The number of conformers to generate for each molecule.</span>
+<span class="sd">        param: The parameters for embedding molecules.</span>
+<span class="sd">        target: The target molecule.</span>
+<span class="sd">        target_configuration: The embedded configuration of the target molecule.</span>
+<span class="sd">        target_usrcat: The USRCAT descriptor of the target molecule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the USRCAT_Fitness object with the target molecule and configuration parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for the fitness calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">conformers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">rdDistGeom</span><span class="o">.</span><span class="n">ETKDGv3</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">randomSeed</span> <span class="o">=</span> <span class="mh">0xFB0D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">numThreads</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">numThreads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_configuration</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMultipleConfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_usrcat</span> <span class="o">=</span> <span class="n">GetUSRCAT</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule for which the fitness value needs to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">usrcat_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span><span class="p">)</span>
+        <span class="n">molecular_graph</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">)))</span>
+        <span class="n">conf_ids</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMultipleConfs</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">conf_id</span> <span class="ow">in</span> <span class="n">conf_ids</span><span class="p">:</span>
+            <span class="n">usrcat</span> <span class="o">=</span> <span class="n">GetUSRCAT</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="n">confId</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">conf_id</span><span class="p">))</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">GetUSRScore</span><span class="p">(</span><span class="n">usrcat</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_usrcat</span><span class="p">)</span>
+            <span class="n">usrcat_scores</span><span class="p">[</span><span class="n">conf_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">usrcat_scores</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">molecule</span></div>
+
+
+
+<div class="viewcode-block" id="Zernike_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Zernike_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">Zernike_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule using Zernike moments.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the Zernike_Fitness object with the target molecule and configuration parameters.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        N: The expansion order of the Zernike moments.</span>
+<span class="sd">        prefactor: The prefactor for calculating Zernike moments.</span>
+<span class="sd">        param: The parameters for embedding molecules.</span>
+<span class="sd">        n_conformers: The number of conformers to generate for each molecule.</span>
+<span class="sd">        Yljm: Coefficients used for computing Zernike moments.</span>
+<span class="sd">        Qklnu: Coefficients used for computing Zernike moments.</span>
+<span class="sd">        engine: An instance of the Zernike_JIT class for computing Zernike moments.</span>
+<span class="sd">        target: The target molecule.</span>
+<span class="sd">        target_zernike: The Zernike moments of the target molecule.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Zernike_Fitness object with the target molecule and configuration parameters.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for the fitness calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">expansion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefactor</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="o">=</span> <span class="n">rdDistGeom</span><span class="o">.</span><span class="n">ETKDGv3</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">randomSeed</span> <span class="o">=</span> <span class="mh">0xFB0D</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">conformers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">numThreads</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">numThreads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Yljm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/coefficients/Yljm.npy&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Qklnu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/coefficients/Qklnu.npy&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">engine</span> <span class="o">=</span> <span class="n">Zernike_JIT</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Qklnu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Yljm</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">target</span><span class="p">)))</span>
+        <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMultipleConfs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_zernike</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_zernike</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">conf_id</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Zernike_Fitness.coordinate_extractor">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Zernike_Fitness.coordinate_extractor">[docs]</a>
+    <span class="k">def</span> <span class="nf">coordinate_extractor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">,</span> <span class="n">confid</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts atomic coordinates from a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule from which to extract coordinates.</span>
+<span class="sd">            confid (int, optional): The conformer ID. Defaults to -1.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The atomic coordinates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">PDBBlock</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolToPDBBlock</span><span class="p">(</span><span class="n">molecule</span><span class="p">,</span> <span class="n">confId</span><span class="o">=</span><span class="n">confid</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">PDBBlock</span><span class="p">:</span>
+            <span class="n">split</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;HETATM&quot;</span><span class="p">:</span>
+                <span class="n">x_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="mi">5</span><span class="p">]))</span>
+                <span class="n">y_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="mi">6</span><span class="p">]))</span>
+                <span class="n">z_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="mi">7</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;END&quot;</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_points</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_points</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z_points</span><span class="p">)</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">coordinates</span></div>
+
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule for which the fitness value needs to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">molecular_graph</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">AddHs</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">CanonSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">)))</span>
+        <span class="n">conf_ids</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">EmbedMultipleConfs</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_conformers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">zernikes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_zernike</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="n">conf_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">conf_id</span> <span class="ow">in</span> <span class="n">conf_ids</span><span class="p">]</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">distance</span><span class="o">.</span><span class="n">canberra</span><span class="p">(</span><span class="n">zernike</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_zernike</span><span class="p">))</span> <span class="k">for</span> <span class="n">zernike</span> <span class="ow">in</span> <span class="n">zernikes</span><span class="p">]</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">molecule</span>
+
+<div class="viewcode-block" id="Zernike_Fitness.get_zernike">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Zernike_Fitness.get_zernike">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_zernike</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecular_graph</span><span class="p">,</span> <span class="n">conf_id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates Zernike moments for a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecular_graph: The molecule.</span>
+<span class="sd">            conf_id: The conformer ID.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The Zernike moments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">AllChem</span><span class="o">.</span><span class="n">ComputeGasteigerCharges</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">)</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_extractor</span><span class="p">(</span><span class="n">molecular_graph</span><span class="p">,</span> <span class="n">conf_id</span><span class="p">)</span>
+        <span class="n">charges</span> <span class="o">=</span> <span class="p">[</span><span class="n">molecular_graph</span><span class="o">.</span><span class="n">GetAtomWithIdx</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">GetDoubleProp</span><span class="p">(</span><span class="s2">&quot;_GasteigerCharge&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">molecular_graph</span><span class="o">.</span><span class="n">GetNumAtoms</span><span class="p">())]</span>
+        <span class="n">zernike</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">invariants</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">charges</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">zernike</span></div>
+
+
+<div class="viewcode-block" id="Zernike_Fitness.invariants">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Zernike_Fitness.invariants">[docs]</a>
+    <span class="k">def</span> <span class="nf">invariants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes Zernike invariants for a set of coordinates and features.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coordinates: Atomic coordinates.</span>
+<span class="sd">            features: Atomic features.</span>
+<span class="sd">            N: The expansion order.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The Zernike invariants.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">features_plus</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
+        <span class="n">features_negative</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">features</span><span class="p">]</span>
+        <span class="n">invariants_plus</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unsigned_invariants</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">features_plus</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">invariants_negative</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unsigned_invariants</span><span class="p">(</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">features_negative</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">invariants_plus</span> <span class="o">-</span> <span class="n">invariants_negative</span></div>
+
+
+<div class="viewcode-block" id="Zernike_Fitness.unsigned_invariants">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.Zernike_Fitness.unsigned_invariants">[docs]</a>
+    <span class="k">def</span> <span class="nf">unsigned_invariants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes unsigned Zernike invariants.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coordinates: Atomic coordinates.</span>
+<span class="sd">            features: Atomic features.</span>
+<span class="sd">            N: The expansion order.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The unsigned Zernike invariants.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">coordinates</span><span class="p">)))</span>
+        <span class="n">x_points</span> <span class="o">=</span> <span class="n">x_points</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">x_points</span><span class="p">)</span>
+        <span class="n">y_points</span> <span class="o">=</span> <span class="n">y_points</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_points</span><span class="p">)</span>
+        <span class="n">z_points</span> <span class="o">=</span> <span class="n">z_points</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">z_points</span><span class="p">)</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
+        <span class="n">geometric_moments</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">geometric_moments</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">invariants</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="o">.</span><span class="n">zernike_invariants</span><span class="p">(</span><span class="n">geometric_moments</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">invariants</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="n">spec</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;prefactor&quot;</span><span class="p">,</span> <span class="n">float64</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Qklnu&quot;</span><span class="p">,</span> <span class="n">complex128</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]),</span>    <span class="p">(</span><span class="s2">&quot;Yljm&quot;</span><span class="p">,</span> <span class="n">complex128</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]),]</span>
+<span class="nd">@jitclass</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">Zernike_JIT</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for computing Zernike moments and invariants using just-in-time (JIT) compilation.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the Zernike_JIT object with the precomputed coefficients.</span>
+<span class="sd">        geometric_moments: Computes geometric moments for a set of features and coordinates.</span>
+<span class="sd">        choose: Computes the binomial coefficient.</span>
+<span class="sd">        zernike_invariants: Computes Zernike invariants from geometric moments.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        prefactor: The prefactor for calculating Zernike moments.</span>
+<span class="sd">        Qklnu: Coefficients used for computing Zernike moments.</span>
+<span class="sd">        Yljm: Coefficients used for computing Zernike moments.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Qklnu</span><span class="p">,</span> <span class="n">Yljm</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Zernike_JIT object with the precomputed coefficients.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            Qklnu: Coefficients used for computing Zernike moments.</span>
+<span class="sd">            Yljm: Coefficients used for computing Zernike moments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prefactor</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Qklnu</span> <span class="o">=</span> <span class="n">Qklnu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Yljm</span> <span class="o">=</span> <span class="n">Yljm</span>
+
+    <span class="k">def</span> <span class="nf">geometric_moments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">features</span><span class="p">,</span> <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes geometric moments for a set of features and coordinates.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            features: The features for each atom.</span>
+<span class="sd">            x_points: The x-coordinates of the atoms.</span>
+<span class="sd">            y_points: The y-coordinates of the atoms.</span>
+<span class="sd">            z_points: The z-coordinates of the atoms.</span>
+<span class="sd">            N: The expansion order of the Zernike moments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The geometric moments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">geometric_moments</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">N</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">x_points</span><span class="p">,</span> <span class="n">y_points</span><span class="p">,</span> <span class="n">z_points</span><span class="p">):</span>
+                            <span class="n">geometric_moments</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">f</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">geometric_moments</span>
+
+    <span class="k">def</span> <span class="nf">choose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the binomial coefficient.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            n: The total number of items.</span>
+<span class="sd">            k: The number of items to choose.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The binomial coefficient.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+            <span class="n">ntok</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="n">ktok</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">ntok</span> <span class="o">*=</span> <span class="n">n</span>
+                <span class="n">ktok</span> <span class="o">*=</span> <span class="n">t</span>
+                <span class="n">n</span> <span class="o">-=</span> <span class="mf">1.0</span>
+            <span class="k">return</span> <span class="n">ntok</span> <span class="o">//</span> <span class="n">ktok</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">zernike_invariants</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">geometric_moments</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes Zernike invariants from geometric moments.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            geometric_moments: The geometric moments.</span>
+<span class="sd">            N: The expansion order of the Zernike moments.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The Zernike invariants.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">invariants</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">complex128</span><span class="p">)</span>
+        <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">complex128</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">N</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="n">V</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">choose</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">geometric_moments</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">N</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="n">W</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">choose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">N</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="n">X</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">choose</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">W</span><span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">N</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="n">Y</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Yljm</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span> <span class="o">*</span> <span class="n">X</span><span class="p">[</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">,</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">d</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                            <span class="n">Z</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefactor</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">Qklnu</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">Y</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">sigma_vector</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="n">sigma_vector</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="nb">abs</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">c</span><span class="p">)]))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">sigma_vector</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Z</span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+                    <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma</span> <span class="k">for</span> <span class="n">sigma</span> <span class="ow">in</span> <span class="n">sigma_vector</span><span class="p">])))</span>
+                    <span class="n">invariants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">norm</span><span class="p">)</span>
+        <span class="n">invariants</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">invariants</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">invariants</span>
+
+
+<div class="viewcode-block" id="OVC_Fitness">
+<a class="viewcode-back" href="../../../modules/fitness.html#illumination.functions.fitness.OVC_Fitness">[docs]</a>
+<span class="k">class</span> <span class="nc">OVC_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule using various models for</span>
+<span class="sd">    organic photovoltaics based on autoML models provided by Tartarus.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        target: The type of fitness model to be used.</span>
+<span class="sd">        model_homo_lumo: The model for predicting HOMO-LUMO energy gap.</span>
+<span class="sd">        model_lumo_val: The model for predicting LUMO energy value.</span>
+<span class="sd">        model_dipole: The model for predicting dipole moment.</span>
+<span class="sd">        model_combined: The combined model for multiple properties.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the OVC_Fitness object with the specified target model.</span>
+<span class="sd">        __call__: Updates the fitness value of a molecule using the specified model.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the OVC_Fitness object with the specified target model.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config: An object specifying the configuration for fitness calculation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_homo_lumo</span> <span class="o">=</span> <span class="n">OVC_Model</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/trained_model/homo_lumo&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_lumo_val</span> <span class="o">=</span> <span class="n">OVC_Model</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/trained_model/lumo_val&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_dipole</span> <span class="o">=</span> <span class="n">OVC_Model</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/trained_model/dipole&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_combined</span> <span class="o">=</span> <span class="n">OVC_Model</span><span class="p">(</span><span class="n">hydra</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">to_absolute_path</span><span class="p">(</span><span class="s2">&quot;data/trained_model/function&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: The molecule for which the fitness value needs to be updated.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;model_&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not a supported model type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">))</span>
+        <span class="n">fitness</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">)</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">fitness</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">molecule</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">OVC_Model</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a machine learning model for predicting molecular properties.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        use_ensemble: Flag indicating whether to use ensemble prediction.</span>
+<span class="sd">        model_list: List of models for predicting the specified OVC target.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the OVC_Model object for the specified target model.</span>
+<span class="sd">        forward: Performs forward pass of the specified target model.</span>
+<span class="sd">        get_fingerprint: Generates molecular fingerprint from SMILES for featurisation.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_list_dir</span><span class="p">,</span> <span class="n">use_ensemble</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the OVC_Model object with the specified model directory.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            model_list_dir: The directory containing model files.</span>
+<span class="sd">            use_ensemble: Flag indicating whether to use ensemble prediction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OVC_Model</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_ensemble</span> <span class="o">=</span> <span class="n">use_ensemble</span>
+
+        <span class="n">model_state_dicts</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">model_list_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">model_state_dict</span> <span class="ow">in</span> <span class="n">model_state_dicts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_list_dir</span><span class="p">,</span> <span class="n">model_state_dict</span><span class="p">),</span> <span class="n">map_location</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="n">use_ensemble</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">break</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs forward pass of the model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            x: Input data to the model.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The model prediction.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fingerprint</span><span class="p">(</span><span class="n">smile</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">nBits</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">ecfp_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_list</span><span class="p">:</span>
+            <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+
+        <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_ensemble</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mean</span><span class="p">,</span> <span class="n">var</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">mean</span>
+
+    <span class="k">def</span> <span class="nf">get_fingerprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">smile</span><span class="p">,</span> <span class="n">nBits</span><span class="p">,</span> <span class="n">ecfp_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates molecular fingerprint from SMILES.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            smile (str): The SMILES representation of the molecule.</span>
+<span class="sd">            nBits (int): The number of bits for fingerprint.</span>
+<span class="sd">            ecfp_degree (int): The degree of ECFP fingerprint.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: The molecular fingerprint.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">m1</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">smile</span><span class="p">)</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">AllChem</span><span class="o">.</span><span class="n">GetMorganFingerprintAsBitVect</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span> <span class="n">ecfp_degree</span><span class="p">,</span> <span class="n">nBits</span><span class="o">=</span><span class="n">nBits</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">0</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span>
+        <span class="n">DataStructs</span><span class="o">.</span><span class="n">ConvertToNumpyArray</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">class</span> <span class="nc">Docking_Fitness</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A strategy class for calculating the fitness of a molecule.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        pdb: The PDB ID of the target protein.</span>
+<span class="sd">        sa_mu: The mean value for the synthetic accessibility score.</span>
+<span class="sd">        sa_sigma: The standard deviation for the synthetic accessibility score.</span>
+<span class="sd">        benchmark: Benchmark data including the oracle function and other data.</span>
+<span class="sd">        oracle_fct: The oracle function used to evaluate the molecule.</span>
+<span class="sd">        data: Data related to the benchmark.</span>
+<span class="sd">        name: Name of the benchmark.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Docking_Fitness class with the provided configuration.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            config (Config): Configuration object containing target, max_calls, and other settings.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pdb</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sa_mu</span> <span class="o">=</span> <span class="mf">2.230044</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">sa_sigma</span> <span class="o">=</span> <span class="mf">0.6526308</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pdb</span><span class="p">,</span> <span class="n">num_max_call</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">max_calls</span><span class="p">)</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">oracle_fct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">benchmark</span><span class="p">[</span><span class="s1">&#39;oracle&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">benchmark</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">benchmark</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> 
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the fitness value of a molecule.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            molecule: A Molecule object with a SMILES string attribute.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Molecule: The input molecule object with updated fitness and synthetic accessibility score.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">oracle_fct</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">sa_score</span> <span class="o">=</span> <span class="n">sascorer</span><span class="o">.</span><span class="n">calculateScore</span><span class="p">(</span><span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="n">molecule</span><span class="o">.</span><span class="n">smiles</span><span class="p">))</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">score</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">sa_score</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sa_mu</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sa_sigma</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span> 
+        <span class="n">molecule</span><span class="o">.</span><span class="n">fitness</span> <span class="o">=</span> <span class="n">score</span>
+        <span class="n">molecule</span><span class="o">.</span><span class="n">sa_score</span> <span class="o">=</span> <span class="n">sa_score</span>
+        <span class="k">return</span> <span class="n">molecule</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Jonas Verhellen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=58f5e731"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>
