@@ -1,10 +1,10 @@
 ---
 controller:
-  max_generations: 300
-  max_fitness_calls: 2500
+  max_generations: 9000
+  max_fitness_calls: 5000
 archive:
   name: Troglitazone
-  size: 150
+  size: 100
   accuracy: 25000
 descriptor:
   properties:
@@ -22,18 +22,22 @@ descriptor:
   - - 40
     - 130
 fitness:
-  type: Guacamol
-  target: median2
+  type: Fingerprint
+  target: CN(C)S(=O)(=O)c1ccc2Sc3ccccc3C(=CCCN4CCN(C)CC4)c2c1
+  representation: ECFP4
 arbiter:
   rules:
   - Glaxo
 generator:
   batch_size: 40
   initial_size: 40
-  mutation_data: data/smarts/mutation_collection.tsv
-  initial_data: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
+  sampling_method: Rank
+  use_crossover: True
+  use_scanning: True
+  mutation_data: data/smarts/mutation_collection_argenomic.tsv
+  initial_data: data/smiles/guacamol_initial_rediscovery_thiotixene.smi
 surrogate:
   type: Fingerprint
   representation: ECFP4
-acquisition: 
-  type: Mean
+acquisition:
+  type: logEI

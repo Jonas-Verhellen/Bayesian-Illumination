@@ -321,37 +321,56 @@ class Archive:
         self.incoming_molecules = molecules
         return None
 
-    def sample(self, size: int) -> List[Chem.Mol]:
+    def sample(self, size: int, sampling_method: str = "Rank") -> List[Chem.Mol]:
         """
-        Returns a list of elite molecules of the requested size, weighted by fitness.
+        Returns a list of elite molecules of the requested size, sampled by the given method.
 
         Args:
             size: The number of elite molecules to sample.
+            sampling_method: Sampling strategy. One of ["Elitism", "Rank", "Tournament", "Roulette"].
 
         Returns:
             List[Chem.Mol]: A list of sampled elite molecules.
         """
         pairs = [(elite.molecule, elite.molecule.fitness) for elite in self.elites if elite.molecule]
-        molecules, weights = map(list, zip(*pairs))
-        return random.choices(molecules, k=size, weights=weights)
+        if not pairs:
+            return []
 
-    def sample_pairs(self, size: int) -> List[Tuple[Chem.Mol, Chem.Mol]]:
+        molecules, fitnesses = map(list, zip(*pairs))
+
+        if sampling_method == "Elitism":
+            sorted_pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
+            return [p[0] for p in sorted_pairs[:size]]
+        elif sampling_method == "Rank":
+            sorted_pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
+            molecules, fitnesses = zip(*sorted_pairs)
+            weights = [1 / (i + 1) for i in range(len(fitnesses))]
+            return random.choices(molecules, weights=weights, k=size)
+        elif sampling_method == "Tournament":
+            def tournament_selection():
+                competitors = random.sample(pairs, min(5, len(pairs)))
+                return max(competitors, key=lambda x: x[1])[0]
+            return [tournament_selection() for _ in range(size)]
+        elif sampling_method == "Roulette":
+            return random.choices(molecules, weights=fitnesses, k=size)
+        else:
+            raise ValueError(f"Unknown sampling method: {sampling_method}")
+
+
+    def sample_pairs(self, size: int, sampling_method: str = "Rank") -> List[Tuple[Chem.Mol, Chem.Mol]]:
         """
-        Returns a list of pairs of elite molecules of the requested size, weighted by fitness.
+        Returns a list of pairs of elite molecules of the requested size, sampled by the given method.
 
         Args:
             size: The number of pairs of elite molecules to sample.
+            sampling_method: Sampling strategy. One of ["Elitism", "Rank", "Tournament", "Roulette"].
 
         Returns:
             List[Tuple[Chem.Mol, Chem.Mol]]: A list of sampled pairs of elite molecules.
         """
-        pairs = [(elite.molecule, elite.molecule.fitness) for elite in self.elites if elite.molecule]
-        molecules, weights = map(list, zip(*pairs))
-        sample_molecules = random.choices(molecules, k=size, weights=weights)
-        sample_pairs = np.random.choice(list(filter(None, sample_molecules)), size=(size, 2), replace=True)
-        sample_pairs = [tuple(sample_pair) for sample_pair in sample_pairs]
-        return sample_pairs
-
+        sampled_molecules = self.sample(size * 2, sampling_method=sampling_method)
+        sample_pairs = [(sampled_molecules[i], sampled_molecules[i + 1]) for i in range(0, len(sampled_molecules), 2)]
+        return sample_pairs[:size]
 
 class Arbiter:
     """
