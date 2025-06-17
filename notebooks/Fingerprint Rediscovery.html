@@ -1,0 +1,915 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Adapting and Extending GB-GI" href="Extending%20GB-GI.html" /><link rel="prev" title="Benchmarks" href="../modules/benchmarks.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>Small Molecule Rediscovery - GB-BI</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">GB-BI</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">GB-BI</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/overview.html">Core Functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/benchmarks.html">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Small Molecule Rediscovery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Extending%20GB-GI.html">Adapting and Extending GB-GI</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../modules/base.html">Base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/fitness.html">Fitness</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/surrogate.html">Surrogate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/mechanism.html">Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/operations.html">Operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/acquisition.html">Acquisition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/illumination.html">Illumination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/infrastructure.html">Infrastructure</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../_sources/notebooks/Fingerprint Rediscovery.ipynb.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="Small-Molecule-Rediscovery">
+<h1>Small Molecule Rediscovery<a class="headerlink" href="#Small-Molecule-Rediscovery" title="Link to this heading">¶</a></h1>
+<p><strong>In this notebook, we will show how to explore the rediscovery capabilities of GB-BI for small molecules.</strong></p>
+<p>Welcome to our notebook on using GB-GI to rediscover small molecules using the Tanimoto similarity and fingerprints! Because GB-BI is a quality-diversity method, the end result of such an optimisation is a collection of high-scoring molecules (i.e. highly similar to the target molecule) with a diversity of physico-chemical properties. So, if you’re eager to learn how to use GB-GI’s rediscovery capabilities or you want to know how to use different types of fingerprints, you’re in the right place.
+For rediscovery based on descriptors and conformer aggregate similarity, see the dedicated tutorial.</p>
+<section id="Running-GB-BI">
+<h2>Running GB-BI<a class="headerlink" href="#Running-GB-BI" title="Link to this heading">¶</a></h2>
+<p>The most basic usage of GB-BI is to simply run the illuminate.py file, without any extra configurations specficied in the command line. In this case, GB-BI will call on the <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file in ../Argenomic-GP/configuration folder by making use of Hydra (an open-source Python framework that handle a hierarchical configuration file which can be easily be adapted through the command line.).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GB</span><span class="o">-</span><span class="n">BI</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+<p>While initially the configuration file seem complex or even intimidating, each of the individual components are very easy to understand and adapt. Later on in this tutorial, we will go into detail for each of the components, but for now we just want to highlight a few key aspects.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="n">controller</span><span class="p">:</span>
+  <span class="n">max_generations</span><span class="p">:</span> <span class="mi">100</span>
+  <span class="n">max_fitness_calls</span><span class="p">:</span> <span class="mi">1000</span>
+<span class="n">archive</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">archive_150_4_25000</span>
+  <span class="n">size</span><span class="p">:</span> <span class="mi">150</span>
+  <span class="n">accuracy</span><span class="p">:</span> <span class="mi">25000</span>
+<span class="n">descriptor</span><span class="p">:</span>
+  <span class="n">properties</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">ExactMolWt</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">MolLogP</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">TPSA</span>
+  <span class="o">-</span> <span class="n">Crippen</span><span class="o">.</span><span class="n">MolMR</span>
+  <span class="n">ranges</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">225</span>
+    <span class="o">-</span> <span class="mi">555</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="o">-</span><span class="mf">0.5</span>
+    <span class="o">-</span> <span class="mf">5.5</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="mi">140</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">40</span>
+    <span class="o">-</span> <span class="mi">130</span>
+<span class="n">fitness</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Fingerprint</span>
+  <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4&quot;</span>
+  <span class="n">representation</span><span class="p">:</span> <span class="n">ECFP4</span>
+<span class="n">arbiter</span><span class="p">:</span>
+  <span class="n">rules</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">Glaxo</span>
+<span class="n">generator</span><span class="p">:</span>
+  <span class="n">batch_size</span><span class="p">:</span> <span class="mi">40</span>
+  <span class="n">initial_size</span><span class="p">:</span> <span class="mi">40</span>
+  <span class="n">mutation_data</span><span class="p">:</span> <span class="n">data</span><span class="o">/</span><span class="n">smarts</span><span class="o">/</span><span class="n">mutation_collection</span><span class="o">.</span><span class="n">tsv</span>
+  <span class="n">initial_data</span><span class="p">:</span> <span class="n">data</span><span class="o">/</span><span class="n">smiles</span><span class="o">/</span><span class="n">guacamol_intitial_rediscovery_troglitazone</span><span class="o">.</span><span class="n">smi</span>
+<span class="n">surrogate</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Fingerprint</span>
+  <span class="n">representation</span><span class="p">:</span> <span class="n">ECFP4</span>
+<span class="n">acquisition</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Mean</span>
+</pre></div>
+</div>
+</div>
+<p>This standard config file specifies GB_BI run for a maximum of 100 generations or 1000 fitness function calls with an archive containing 150 niches. This is also the maximum amount of molecules that could potentially make up the evolutionary population at any given generation. The archive is spanned by 4 descriptors (<code class="docutils literal notranslate"><span class="pre">Descriptors.ExactMolWt</span></code>, <code class="docutils literal notranslate"><span class="pre">Descriptors.MolLogP</span></code>, <code class="docutils literal notranslate"><span class="pre">Descriptors.TPSA</span></code>, <code class="docutils literal notranslate"><span class="pre">Crippen.MolMR</span></code>) an limited to corresponding ranges indicated in the configuration file. The fitness
+function is the Tanimoto similarity (standard for all fingerprint representations) applied to ECFP4 fingerprints. The target, Troglitazone, is specified by its SMILES representation. Finally, the molecular representation (<code class="docutils literal notranslate"><span class="pre">ECFP4</span> <span class="pre">fingerprints</span></code>) for the surrogate model and the acquistion function (<code class="docutils literal notranslate"><span class="pre">Posterior</span> <span class="pre">Mean</span></code>) are also specified.</p>
+</section>
+<section id="Interpreting-the-Output-of-a-GB-BI-Optimisation-Run">
+<h2>Interpreting the Output of a GB-BI Optimisation Run<a class="headerlink" href="#Interpreting-the-Output-of-a-GB-BI-Optimisation-Run" title="Link to this heading">¶</a></h2>
+<p>In the same way we rely on HYDRA to take care of configurations files, we also use it to autmatically generate date and time-stamped output folders. For GB-BI, these folders contain a series of <code class="docutils literal notranslate"><span class="pre">archive_i.csv</span></code> files where <code class="docutils literal notranslate"><span class="pre">i</span></code> is the generation at the of which the archive was printed to file.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">archive_0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./Example_Output/archive_100.csv&#39;</span><span class="p">)[[</span><span class="s1">&#39;acquisition_value&#39;</span><span class="p">,</span> <span class="s1">&#39;fitness&#39;</span><span class="p">,</span> <span class="s1">&#39;niche_index&#39;</span><span class="p">,</span> <span class="s1">&#39;predicted_fitness&#39;</span><span class="p">,</span> <span class="s1">&#39;predicted_uncertainty&#39;</span><span class="p">,</span>   <span class="s1">&#39;smiles&#39;</span><span class="p">]]</span>
+<span class="n">archive_0</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>acquisition_value</th>
+      <th>fitness</th>
+      <th>niche_index</th>
+      <th>predicted_fitness</th>
+      <th>predicted_uncertainty</th>
+      <th>smiles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.425027</td>
+      <td>0.448980</td>
+      <td>3</td>
+      <td>0.425027</td>
+      <td>0.000435</td>
+      <td>O=C1NC(=O)C(Cc2ccc(OCC=C(O)Br)cc2)S1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.365707</td>
+      <td>0.377358</td>
+      <td>4</td>
+      <td>0.365707</td>
+      <td>0.000271</td>
+      <td>Cc1c(C)c2c(c(C)c1O)CCC(C)(CN1CCN(C)C1)O2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.423895</td>
+      <td>0.427273</td>
+      <td>5</td>
+      <td>0.423895</td>
+      <td>0.000272</td>
+      <td>CN1CCN(C(O)COc2ccc(CC3SC(=O)NC3=O)cc2)CC1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.537205</td>
+      <td>0.552083</td>
+      <td>6</td>
+      <td>0.537205</td>
+      <td>0.000205</td>
+      <td>Cc1c(C)c2c(c(C)c1O)CCC(C)(Cc1ccc(Br)cc1)O2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.361091</td>
+      <td>0.326316</td>
+      <td>7</td>
+      <td>0.361091</td>
+      <td>0.000935</td>
+      <td>O=C1NC(=O)C(Cc2ccccc2)S1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.436628</td>
+      <td>0.440000</td>
+      <td>8</td>
+      <td>0.436628</td>
+      <td>0.000139</td>
+      <td>CN(Br)N(Br)COc1ccc(CC2SC(=O)NC2=O)cc1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.649736</td>
+      <td>0.652632</td>
+      <td>10</td>
+      <td>0.649736</td>
+      <td>0.000634</td>
+      <td>Cc1c(C)c2c(c(C)c1O)CCC(C)(CONCC1SC(=O)NC1=O)O2</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.208211</td>
+      <td>0.215686</td>
+      <td>11</td>
+      <td>0.208211</td>
+      <td>0.000423</td>
+      <td>O=C1NC(=O)C(COCC(O)OBr)S1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.713624</td>
+      <td>0.765957</td>
+      <td>14</td>
+      <td>0.713624</td>
+      <td>0.000880</td>
+      <td>Cc1c(C)c2c(c(C)c1O)CCC(C)(c1ccc(CC3SC(=O)NC3=O...</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.800924</td>
+      <td>1.000000</td>
+      <td>18</td>
+      <td>0.800924</td>
+      <td>0.000857</td>
+      <td>Cc1c(C)c2c(c(C)c1O)CCC(C)(COc1ccc(CC3SC(=O)NC3...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>In addition, the folder also contains a <code class="docutils literal notranslate"><span class="pre">molecules.csv</span></code> file and a <code class="docutils literal notranslate"><span class="pre">statistics.csv</span></code> file. These files respectively comprise of all molecules (and their properties) that have been evalauted by the fitness function and the overall statistics of the archive and the GB-BI run at each generation.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">statistics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./Example_Output/statistics.csv&#39;</span><span class="p">)</span>
+<span class="n">statistics</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>generation</th>
+      <th>maximum fitness</th>
+      <th>mean fitness</th>
+      <th>quality diversity score</th>
+      <th>coverage</th>
+      <th>function calls</th>
+      <th>max_err</th>
+      <th>mse</th>
+      <th>mae</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0.418803</td>
+      <td>0.377648</td>
+      <td>3.398836</td>
+      <td>6.000000</td>
+      <td>24</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0.495935</td>
+      <td>0.326890</td>
+      <td>9.806713</td>
+      <td>20.000000</td>
+      <td>54</td>
+      <td>0.189796</td>
+      <td>0.009939</td>
+      <td>0.078342</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2</td>
+      <td>0.495935</td>
+      <td>0.337603</td>
+      <td>12.153720</td>
+      <td>24.000000</td>
+      <td>85</td>
+      <td>0.076884</td>
+      <td>0.001355</td>
+      <td>0.029830</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3</td>
+      <td>0.495935</td>
+      <td>0.360824</td>
+      <td>14.432969</td>
+      <td>26.666667</td>
+      <td>119</td>
+      <td>0.060353</td>
+      <td>0.000754</td>
+      <td>0.021815</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4</td>
+      <td>0.564815</td>
+      <td>0.375560</td>
+      <td>15.773541</td>
+      <td>28.000000</td>
+      <td>155</td>
+      <td>0.106445</td>
+      <td>0.001486</td>
+      <td>0.028396</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>0.592593</td>
+      <td>0.386288</td>
+      <td>17.382972</td>
+      <td>30.000000</td>
+      <td>190</td>
+      <td>0.089415</td>
+      <td>0.001411</td>
+      <td>0.030500</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>0.791667</td>
+      <td>0.397842</td>
+      <td>19.096398</td>
+      <td>32.000000</td>
+      <td>226</td>
+      <td>0.225988</td>
+      <td>0.002762</td>
+      <td>0.032465</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>0.817204</td>
+      <td>0.402366</td>
+      <td>20.520662</td>
+      <td>34.000000</td>
+      <td>263</td>
+      <td>0.093953</td>
+      <td>0.000831</td>
+      <td>0.019793</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>0.817204</td>
+      <td>0.415433</td>
+      <td>21.602498</td>
+      <td>34.666667</td>
+      <td>301</td>
+      <td>0.091979</td>
+      <td>0.000716</td>
+      <td>0.018666</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>1.000000</td>
+      <td>0.429936</td>
+      <td>22.356681</td>
+      <td>34.666667</td>
+      <td>338</td>
+      <td>0.199076</td>
+      <td>0.001700</td>
+      <td>0.022910</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="Overwriting-the-Configuration-File-from-the-Command-Line">
+<h2>Overwriting the Configuration File from the Command Line<a class="headerlink" href="#Overwriting-the-Configuration-File-from-the-Command-Line" title="Link to this heading">¶</a></h2>
+<p>All the settings specified in the standard configuration file can easily be overwritten in the command line. For example, we can change the target to <code class="docutils literal notranslate"><span class="pre">Tiotixene</span></code> and change the acquistion function to the <code class="docutils literal notranslate"><span class="pre">expected</span> <span class="pre">improvement</span></code> (EI).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GB</span><span class="o">-</span><span class="n">BI</span><span class="o">.</span><span class="n">py</span> <span class="n">fitness</span><span class="o">.</span><span class="n">target</span><span class="o">=</span><span class="s2">&quot;O=S(=O)(N(C)C)c2cc1C(\c3c(Sc1cc2)cccc3)=C/CCN4CCN(C)CC4&quot;</span> <span class="n">acquisition</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="n">EI</span>
+</pre></div>
+</div>
+</div>
+<p>Thanks to the capabilities of HYDRA, we can also easily set up a multirun of the GB-BI algorithm which sweeps throuhg the different combinations of the configurations specified in the command line. For instance, here we start a multirun with <code class="docutils literal notranslate"><span class="pre">ECFP4</span></code> and <code class="docutils literal notranslate"><span class="pre">FCFP4</span></code> as molecular representations of the surrogate model and using the <code class="docutils literal notranslate"><span class="pre">posterior</span> <span class="pre">mean</span></code> (Mean) and the <code class="docutils literal notranslate"><span class="pre">expected</span> <span class="pre">improvement</span></code> (EI) as acquisition functions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">GB</span><span class="o">-</span><span class="n">BI</span><span class="o">.</span><span class="n">py</span> <span class="n">hydra</span><span class="o">.</span><span class="n">mode</span><span class="o">=</span><span class="n">MULTIRUN</span> <span class="n">surrogate</span><span class="o">.</span><span class="n">representation</span><span class="o">=</span><span class="n">ECFP4</span><span class="p">,</span><span class="n">FCFP4</span> <span class="n">acquisition</span><span class="o">.</span><span class="n">type</span><span class="o">=</span><span class="n">Mean</span><span class="p">,</span><span class="n">EI</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="Components-of-the-Configuration-File">
+<h2>Components of the Configuration File<a class="headerlink" href="#Components-of-the-Configuration-File" title="Link to this heading">¶</a></h2>
+<p>As mentioned before, we will discuss each component of the configuration file. We will go through the different options for each of these components one by one and discuss potential pitfalls. The different components of the configuration file correspond to diffferent classes in the code.</p>
+<p><strong>Controller:</strong> This class controls the basic overall settings of a GB-BI run. In the configuration file, you can set the maximum amount of generations and the maximum amount of fitness calls alloted to the optimsation process. The GB-BI run will end when either has been reached.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">controller</span><span class="p">:</span>
+  <span class="n">max_generations</span><span class="p">:</span> <span class="mi">100</span>
+  <span class="n">max_fitness_calls</span><span class="p">:</span> <span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Archive:</strong> This class controls the quality-diversity archive at the core of GB-BI. The amount of niches is set in this part of the configuration file, but also two more technical aspects. The archive makes use of a centroidal Voronoi tessellation which needs to be sampled at the beginning of each run (with a certain accuracy). To avoid unncessary re-sampling the centroidal Voronoi tessellation can be stored in a file, the name of which is set here. note that the name should be changed if you
+change the accuracy, dimensionality, or size of the archive. The dimensionality is set in the next part of the configuration file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">archive</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">archive_150_4_25000</span>
+  <span class="n">size</span><span class="p">:</span> <span class="mi">150</span>
+  <span class="n">accuracy</span><span class="p">:</span> <span class="mi">25000</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Descriptor:</strong> This class controls the amount and type of physicochemical properties that are used to describe a molecule and place it in its niche. The amounts of descriptors sets the dimensionality of the archive. When choosing ranges, be careful to make sure your target molecule lies within part of chemical space covered by the archive.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">descriptor</span><span class="p">:</span>
+  <span class="n">properties</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">ExactMolWt</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">MolLogP</span>
+  <span class="o">-</span> <span class="n">Descriptors</span><span class="o">.</span><span class="n">TPSA</span>
+  <span class="o">-</span> <span class="n">Crippen</span><span class="o">.</span><span class="n">MolMR</span>
+  <span class="n">ranges</span><span class="p">:</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">225</span>
+    <span class="o">-</span> <span class="mi">555</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="o">-</span><span class="mf">0.5</span>
+    <span class="o">-</span> <span class="mf">5.5</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="mi">140</span>
+  <span class="o">-</span> <span class="o">-</span> <span class="mi">40</span>
+    <span class="o">-</span> <span class="mi">130</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Fitness:</strong> This class controls the type of fitness function that is used during the GB-BI run. For fingerprint-based rediscovery, the options for the representation are <code class="docutils literal notranslate"><span class="pre">ECFP4</span></code>, <code class="docutils literal notranslate"><span class="pre">ECFP6</span></code>, <code class="docutils literal notranslate"><span class="pre">FCFP4</span></code>, and <code class="docutils literal notranslate"><span class="pre">FCFP6</span></code> in line with the representations supported by the Gaucamol rediscovery benchmarks.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fitness</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Fingerprint</span>
+  <span class="n">target</span><span class="p">:</span> <span class="s2">&quot;O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4&quot;</span>
+  <span class="n">representation</span><span class="p">:</span> <span class="n">ECFP4</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Arbiter:</strong> This class controls the type of structural filters that are used during the GB-BI run. The options for the rules are <code class="docutils literal notranslate"><span class="pre">Glaxo</span></code>, <code class="docutils literal notranslate"><span class="pre">Dundee</span></code>, <code class="docutils literal notranslate"><span class="pre">BMS</span></code>, <code class="docutils literal notranslate"><span class="pre">PAINS</span></code>, <code class="docutils literal notranslate"><span class="pre">SureChEMBL</span></code>, <code class="docutils literal notranslate"><span class="pre">MLSMR</span></code>, <code class="docutils literal notranslate"><span class="pre">Inpharmatica</span></code>, and <code class="docutils literal notranslate"><span class="pre">LINT</span></code>. The SMARTS in these rules are determined by Pat Walters, and more information on them can be found in the original scripts. When choosing rules, be careful to make sure your target molecule adheres to the chosen structural filters.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arbiter</span><span class="p">:</span>
+  <span class="n">rules</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">Glaxo</span>
+</pre></div>
+</div>
+</div>
+<p>Note that structural filters can be combined by adding them to configuration file. The combined options for the rules will be read in as a list.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">arbiter</span><span class="p">:</span>
+  <span class="n">rules</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">Glaxo</span>
+  <span class="o">-</span> <span class="n">Dundee</span>
+  <span class="o">-</span> <span class="n">BMS</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Generator:</strong> This class controls the crossovers and mutations in the GB-BI run. The initial size, which is randomly sampled from the inital data (i.e. a column of smiles), can be set in this part of the configuration file together with the batch size for the rest of the optimisation run. The path to the file with the mutation data (SMARTS) can also be changed here.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">generator</span><span class="p">:</span>
+  <span class="n">batch_size</span><span class="p">:</span> <span class="mi">40</span>
+  <span class="n">initial_size</span><span class="p">:</span> <span class="mi">40</span>
+  <span class="n">mutation_data</span><span class="p">:</span> <span class="n">data</span><span class="o">/</span><span class="n">smarts</span><span class="o">/</span><span class="n">mutation_collection</span><span class="o">.</span><span class="n">tsv</span>
+  <span class="n">initial_data</span><span class="p">:</span> <span class="n">data</span><span class="o">/</span><span class="n">smiles</span><span class="o">/</span><span class="n">guacamol_intitial_rediscovery_troglitazone</span><span class="o">.</span><span class="n">smi</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Surrogate:</strong> This class controls the molecular representation used in surrogate fitness model of the GB-BI run. There are two available types: <code class="docutils literal notranslate"><span class="pre">Fingerprint</span></code> and <code class="docutils literal notranslate"><span class="pre">String</span></code>. For <code class="docutils literal notranslate"><span class="pre">Fingerprint</span></code>, the representation options are <code class="docutils literal notranslate"><span class="pre">ECFP4</span></code>, <code class="docutils literal notranslate"><span class="pre">ECFP6</span></code>, <code class="docutils literal notranslate"><span class="pre">FCFP4</span></code>, <code class="docutils literal notranslate"><span class="pre">FCFP6</span></code>, <code class="docutils literal notranslate"><span class="pre">RDFP</span></code>, <code class="docutils literal notranslate"><span class="pre">APFP</span></code>, and<code class="docutils literal notranslate"><span class="pre">TTFP</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surrogate</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Fingerprint</span>
+  <span class="n">representation</span><span class="p">:</span> <span class="n">ECFP4</span>
+</pre></div>
+</div>
+</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">String</span></code>, the representation options are <code class="docutils literal notranslate"><span class="pre">Smiles</span></code> and <code class="docutils literal notranslate"><span class="pre">Selfies</span></code>. As these strings will be represented as a bag-of-characters in the Gaussian process, a maximum ngram <code class="docutils literal notranslate"><span class="pre">max_ngram</span></code> also needs to be defined in the configuration file.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">surrogate</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">String</span>
+  <span class="n">representation</span><span class="p">:</span> <span class="n">Selfies</span>
+  <span class="n">max_ngram</span><span class="p">:</span> <span class="mi">5</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Acquisition:</strong> This class controls the type of acquisition function used in the GB-BI run. The options for the type are the posterioir mean <code class="docutils literal notranslate"><span class="pre">Mean</span></code>, the upper confidence bound <code class="docutils literal notranslate"><span class="pre">UCB</span></code>, the expected improvement <code class="docutils literal notranslate"><span class="pre">EI</span></code>, and a numerically stable implementation of the logarithm of the expected improvement <code class="docutils literal notranslate"><span class="pre">logEI</span></code>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acquisition</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">Mean</span>
+</pre></div>
+</div>
+</div>
+<p>For the the upper confidence bound <code class="docutils literal notranslate"><span class="pre">UCB</span></code>, an additional hyperparameter <code class="docutils literal notranslate"><span class="pre">beta</span></code> which balances exploitation and exploration needs to be defined as well.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">acquisition</span><span class="p">:</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">UCB</span>
+  <span class="n">beta</span><span class="p">:</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="References">
+<h2>References<a class="headerlink" href="#References" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>Griffiths, Ryan-Rhys, et al. “Gauche: A library for Gaussian processes in chemistry.” Advances in Neural Information Processing Systems 36 (2024).</p></li>
+<li><p>Verhellen, Jonas, and Jeriek Van den Abeele. “Illuminating elite patches of chemical space.” Chemical science 11.42 (2020): 11485-11491.</p></li>
+<li><p>Brown, Nathan, et al. “GuacaMol: benchmarking models for de novo molecular design.” Journal of chemical information and modeling 59.3 (2019): 1096-1108.</p></li>
+<li><p>Jensen, Jan H. “A graph-based genetic algorithm and generative model/Monte Carlo tree search for the exploration of chemical space.” Chemical science 10.12 (2019): 3567-3572.</p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="Extending%20GB-GI.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Adapting and Extending GB-GI</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../modules/benchmarks.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Benchmarks</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, Jonas Verhellen
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Small Molecule Rediscovery</a><ul>
+<li><a class="reference internal" href="#Running-GB-BI">Running GB-BI</a></li>
+<li><a class="reference internal" href="#Interpreting-the-Output-of-a-GB-BI-Optimisation-Run">Interpreting the Output of a GB-BI Optimisation Run</a></li>
+<li><a class="reference internal" href="#Overwriting-the-Configuration-File-from-the-Command-Line">Overwriting the Configuration File from the Command Line</a></li>
+<li><a class="reference internal" href="#Components-of-the-Configuration-File">Components of the Configuration File</a></li>
+<li><a class="reference internal" href="#References">References</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=58f5e731"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=4e2eecee"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    </body>
+</html>

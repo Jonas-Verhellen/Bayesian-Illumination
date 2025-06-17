@@ -1,0 +1,353 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "213d6cca",
+   "metadata": {},
+   "source": [
+    "# Adapting and Extending GB-GI\n",
+    "\n",
+    "**In this notebook, we will show how to implement novel fitness functions, representations and acquisition functions.**\n",
+    "\n",
+    "Welcome to our notebook on adapting and extending GB-GI! Here, we'll be introducing a fresh perspectives on the GB-GI codebase by implementing alternative fitness functions, molecular representations, and acquisition functions. Throughout this notebook, we'll focus on the practical aspects of adapting the GB-BI code, providing concrete examples through the creation of new classes for these key components. So, if you're eager to learn how to enhance GB-GI's capabilities or want to know how adapt the code for your own purposes, you're in the right place."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "13a79b88",
+   "metadata": {},
+   "source": [
+    "## Defining a New Fitness Function\n",
+    "\n",
+    "The most easily adaptable component of GB-BI's internal functionalities is the fitness function. In the ../argenomic/functions/fitness.py file, you can find several fitness functions including the those used in the paper. Below, we show an `Abstract_Fitness` class, which highlights how all of the fitness function classes are designed. Essentially, only the `fitness_function` method needs to be implemented to capture the fitness function you want to implement. Optionally this might include creating helper functions and a more involved use of the config file. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "856e6d07",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Abstract_Fitness:\n",
+    "    \"\"\"\n",
+    "    A strategy class for calculating the fitness of a molecule.\n",
+    "    \"\"\"\n",
+    "    def __init__(self, config) -> None:\n",
+    "        self.config = config\n",
+    "        return None\n",
+    "\n",
+    "    def __call__(self, molecule) -> None:\n",
+    "        \"\"\"\n",
+    "        Updates the fitness value of a molecule.\n",
+    "        \"\"\"\n",
+    "        molecule.fitness = self.fitness_function(molecule)\n",
+    "        return molecule\n",
+    "    \n",
+    "    @abstractmethod\n",
+    "    def fitness_function(self, molecule) -> float:\n",
+    "        raise NotImplementedError"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "c0972f9f",
+   "metadata": {},
+   "source": [
+    "For example, we will be implementing the benchmark objective for the design of organic photovoltaics from Tartarus benchmark suite. We load the power conversion efficiency class `pce` from the Tartarus library, based on the Scharber model, and apply it to the SMILES of molecules presented to the `Power_Conversion_Fitness` class. Note that the fitness function includes a penalty based on  the synthetic accessibility score (sas).\n",
+    "\n",
+    "References:\n",
+    "- Nigam, AkshatKumar, et al. [Tartarus: A benchmarking platform for realistic and practical inverse molecular design](https://arxiv.org/pdf/2209.12487.pdf). Advances in Neural Information Processing Systems 36 (2024).\n",
+    "- Alharbi, Fahhad H., et al. [An efficient descriptor model for designing materials for solar cells](https://www.nature.com/articles/npjcompumats20153). npj Computational Materials 1.1 (2015): 1-9.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ff158a5c",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from tartarus import pce\n",
+    "\n",
+    "class Power_Conversion_Fitness:\n",
+    "    \"\"\"\n",
+    "    A strategy class for calculating the fitness of a molecule.\n",
+    "    \"\"\"\n",
+    "    def __init__(self, config) -> None:\n",
+    "        self.config = config\n",
+    "        return None\n",
+    "\n",
+    "    def __call__(self, molecule) -> None:\n",
+    "        \"\"\"\n",
+    "        Updates the fitness value of a molecule.\n",
+    "        \"\"\"\n",
+    "        molecule.fitness = self.fitness_function(molecule)\n",
+    "        return molecule\n",
+    "    \n",
+    "    def fitness_function(self, molecule) -> float:\n",
+    "        dipole, hl_gap, lumo, obj, pce_1, pce_2, sas = pce.get_properties(molecule.smiles)\n",
+    "        return (pce_1 - sas)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ba432cb9",
+   "metadata": {},
+   "source": [
+    "Finally, don't forget to add the newly designed fitness function class to the `Fitness` class in the ../argenomic/mechanism.py file, as shown below, to make it available in the configuration file. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9aee10c6",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from argenomic.functions.fitness import Power_Conversion_Fitness\n",
+    "\n",
+    "class Fitness:\n",
+    "    @staticmethod\n",
+    "    def __new__(self, config):\n",
+    "        match config.type:\n",
+    "            case \"Fingerprint\":\n",
+    "                return Fingerprint_Fitness(config)\n",
+    "            case \"USRCAT\":\n",
+    "                return USRCAT_Fitness(config)\n",
+    "            case \"Zernike\":\n",
+    "                return Zernike_Fitness(config)\n",
+    "            case \"PCE\":\n",
+    "                return Power_Conversion_Fitness(config)\n",
+    "            case _:\n",
+    "                raise ValueError(f\"{config.type} is not a supported fitness function type.\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "00ba6b8d",
+   "metadata": {},
+   "source": [
+    "## Defining a New Molecular Representation\n",
+    "\n",
+    "New molecular representations can readily be added to GB-BI. The process is somewhat more involved than adding a new fitness function, due to the large variety of potential molecular representations and the peculiarities of their original implementations. In the ../argenomic/functions/surrogate.py file, you find the `GP_Surrogate` class which contains all the necessary functionality to apply the Tanimoto kernel from GAUCHE to the representations that are being calculated in the `calculate_encodings` method. Because in some cases (e.g. bag-of-words, SELFIES) the representations need to be determined over the combined list of novel and previously seen molecules, there is a separate `add_to_prior_data` method which adds the novel molecules and their fitness values to the memory of the class and re-calculates the encodings. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "dfd34a7d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Abstract_Surrogate(GP_Surrogate):\n",
+    "    \"\"\"\n",
+    "    A strategy class for calculating the fitness of a molecule.\n",
+    "    \"\"\"\n",
+    "    def __init__(self, config):\n",
+    "        super().__init__(config)\n",
+    "        return None\n",
+    "    \n",
+    "    @abstractmethod\n",
+    "    def add_to_prior_data(self, molecules):\n",
+    "        raise NotImplementedError\n",
+    "\n",
+    "    @abstractmethod\n",
+    "    def calculate_encodings(self, molecules):\n",
+    "        raise NotImplementedError"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a848af99",
+   "metadata": {},
+   "source": [
+    "As an example, we  will implement the Avalon fingerprint as a representation for the surrogate GP model. Note that for use in the Tanimoto kernel it is important to return Numpy array versions of the fingerprint vectors from the `calculate_encodings` method. Because there are no complications in calculating fingerprint representations, the `add_to_prior_data` method simply adds the encoding and the fitness of the new molecules to the `self.encodings` and the `self.fitnesses` variables. \n",
+    "\n",
+    "References:\n",
+    "- Griffiths, Ryan-Rhys, et al. \"Gauche: A library for Gaussian processes in chemistry.\" Advances in Neural Information Processing Systems 36 (2024).   \n",
+    "- Gedeck, Peter, Bernhard Rohde, and Christian Bartels. \"QSAR− how good is it in practice? Comparison of descriptor sets on an unbiased cross section of corporate data sets.\" Journal of chemical information and modeling 46.5 (2006): 1924-1936."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "18a397d0",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from rdkit.Avalon import pyAvalonTools\n",
+    "\n",
+    "class Avalon_Surrogate(GP_Surrogate):\n",
+    "    def __init__(self, config):\n",
+    "        super().__init__(config)\n",
+    "        self.bits = self.config.bits\n",
+    "            \n",
+    "    def add_to_prior_data(self, molecules):\n",
+    "        \"\"\"\n",
+    "        Updates the prior data for the surrogate model with new molecules and their fitness values.\n",
+    "        \"\"\"\n",
+    "        if self.encodings is not None and self.fitnesses is not None:\n",
+    "            self.encodings = np.append(self.encodings, self.calculate_encodings(molecules), axis=0)\n",
+    "            self.fitnesses = np.append(self.fitnesses, np.array([molecule.fitness for molecule in molecules]), axis=None)\n",
+    "        else:\n",
+    "            self.encodings = self.calculate_encodings(molecules)\n",
+    "            self.fitnesses = np.array([molecule.fitness for molecule in molecules])\n",
+    "        return None\n",
+    "\n",
+    "    def calculate_encodings(self, molecules):\n",
+    "        molecular_graphs = [Chem.MolFromSmiles(Chem.CanonSmiles(molecule.smiles)) for molecule in molecules]\n",
+    "        return np.array([pyAvalonTools.GetAvalonFP(molecular_graph, self.bits) for molecular_graph in molecular_graphs]).astype(np.float64)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e74bcc1f",
+   "metadata": {},
+   "source": [
+    "Once again, at the end of this process, it's necessary to add the newly designed surrogate function as an option in the `Surrogate` class in the ../argenomic/mechanism.py file to make it available in the configuration file. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4afe469e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from argenomic.functions.surrogate import Avalon_Surrogate\n",
+    "\n",
+    "class Surrogate:\n",
+    "    @staticmethod\n",
+    "    def __new__(self, config):\n",
+    "        match config.type:\n",
+    "            case \"String\":\n",
+    "                return String_Surrogate(config)\n",
+    "            case \"Fingerprint\":\n",
+    "                return Fingerprint_Surrogate(config)\n",
+    "            case \"Fingerprint\":\n",
+    "                return Avalon_Surrogate(config)\n",
+    "            case _:\n",
+    "                raise ValueError(f\"{config.type} is not a supported surrogate function type.\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "97f34aff",
+   "metadata": {
+    "tags": []
+   },
+   "source": [
+    "## Defining a New Acquisition Function\n",
+    "\n",
+    "A new type of acquisition function can be added to GB-BI in a manner highly similar to adding a new molecular representation. In the ../argenomic/functions/acquisition.py file, you can find the `BO_Acquisition` parent class that encapsulates all the necessary logic to apply Bayesian optimisation to the quality-diversity archive of GB-BI. A novel acquisition function is hence simply made by creating a class that inherits from this class and implements `calculate_acquisition_value` method. Note that the parent class has direct a link to the archive, so the current fitness value of the molecule in the relevant niche can be accessed if necessary."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "0826fcff",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Abstract_Acquisition(BO_Acquisition):\n",
+    "    \"\"\"\n",
+    "    A strategy class for the posterior mean of a list of molecules.\n",
+    "    \"\"\"\n",
+    "    @abstractmethod\n",
+    "    def calculate_acquisition_value(self, molecules) -> None:\n",
+    "        raise NotImplementedError"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "a889afab",
+   "metadata": {},
+   "source": [
+    "To show how this process works, we implement the probability of improvement as a novel acquisition function. First, we inherit from the  BO_Acquisition class and then we fill in the calculate_acquisition_value method with the relevant logic. Note the archive is directly accessed to read-out the fitness of the current occupant of the niche the candidate molecule is assigned to. Empty niches have a fitness function value equal to zero.   \n",
+    "\n",
+    "References:\n",
+    "- Verhellen, Jonas, and Jeriek Van den Abeele. \"Illuminating elite patches of chemical space.\" Chemical science 11.42 (2020): 11485-11491.  \n",
+    "- Kushner, Harold J. \"A new method of locating the maximum point of an arbitrary multipeak curve in the presence of noise.\" (1964): 97-106.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3a1d9344",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "class Probability_Of_Improvement(BO_Acquisition):\n",
+    "    \"\"\"\n",
+    "    A strategy class for the probability of improvement of a list of molecules.\n",
+    "    \"\"\"\n",
+    "    def calculate_acquisition_value(self, molecules) -> None:\n",
+    "        \"\"\"\n",
+    "        Updates the acquisition value for a list of molecules.\n",
+    "        \"\"\"\n",
+    "        current_fitnesses = [self.archive.elites[molecule.niche_index].fitness for molecule in molecules] \n",
+    "        for molecule, current_fitness in zip(molecules, current_fitnesses):\n",
+    "            Z = (molecule.predicted_fitness - current_fitness) / molecule.predicted_uncertainty\n",
+    "            molecule.acquisition_value = norm.cdf(Z)\n",
+    "        return molecules"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "f5e15cc6",
+   "metadata": {},
+   "source": [
+    "Again, for one final time, it is important to remember to add the new acquisition function class to the ../argenomic/mechanism.py file and the `Acquisition` factory class as shown here."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8b468b98",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from argenomic.functions.surrogate import Probability_of_Improvement\n",
+    "\n",
+    "class Acquisition:\n",
+    "    @staticmethod\n",
+    "    def __new__(self, config):        \n",
+    "        match config.type:\n",
+    "            case 'Mean':\n",
+    "                return Posterior_Mean(config)\n",
+    "            case 'UCB':\n",
+    "                return Upper_Confidence_Bound(config)\n",
+    "            case 'EI':\n",
+    "                return Expected_Improvement(config)\n",
+    "            case 'logEI':\n",
+    "                return Log_Expected_Improvement(config)\n",
+    "            case 'PI':\n",
+    "                return Probability_Of_Improvement(config)\n",
+    "            case _:\n",
+    "                raise ValueError(f\"{config.type} is not a supported acquisition function type.\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
