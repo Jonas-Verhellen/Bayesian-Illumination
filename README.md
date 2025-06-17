@@ -21,7 +21,7 @@ New features have been added in a recent patch (June 2025):
 - **Flexible sampling** – choose between `Rank`, `Tournament`, `Elitism`, or continue with `Roulette` for molecule selection.  
 - **Expanded mutation library** – the full set of SMARTS mutations from the original **GB‑EPI / Argenomic** codebase is back, enabling richer exploration of chemical space.  
 
-After benchmarking on several small molecule rediscovery tasks, we suggest the following minimal overrides in your configuration file:
+After benchmarking, we suggest the following minimal overrides in your configuration file:
 
 ```yaml
 generator:
