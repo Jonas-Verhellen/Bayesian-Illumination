@@ -45,6 +45,9 @@ class Generator:
         self.batch_size = config.batch_size
         self.initial_data = config.initial_data
         self.initial_size = config.initial_size
+        self.sampling_method = config.sampling_method
+        self.use_crossover = config.use_crossover
+        self.use_scanning = config.use_scanning
 
     def set_archive(self, archive):
         """
@@ -64,12 +67,13 @@ class Generator:
             List[Molecule]: A list of newly generated molecules.
         """
         molecules = []
-        molecule_samples = self.archive.sample(self.batch_size)
-        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size)
+        molecule_samples = self.archive.sample(self.batch_size, self.sampling_method)
         for molecule in molecule_samples:
             molecules.extend(self.mutator(molecule))
-        for molecule_pair in molecule_sample_pairs:
-            molecules.extend(self.crossover(molecule_pair))
+        if self.use_crossover:
+            molecule_sample_pairs = self.archive.sample_pairs(self.batch_size, self.sampling_method)
+            for molecule_pair in molecule_sample_pairs:
+                molecules.extend(self.crossover(molecule_pair))
         return molecules
 
     def load_from_database(self) -> List[Molecule]:
@@ -115,7 +119,7 @@ class Mutator:
 
         Returns:
             List[Molecule]: A list of new molecules resulting from the mutation as applied
-            by positional analogue scanning.
+            by positional analogue scanning or single molecule sampled from that list.
         """
         sampled_mutation = self.mutation_data.sample(n=1, weights="probability").iloc[0]
         reaction = AllChem.ReactionFromSmarts(sampled_mutation["smarts"])
@@ -126,6 +130,8 @@ class Mutator:
             molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list if Chem.MolFromSmiles(smiles)]
         except Exception:
             molecules = []
+        if not self.use_scanning:
+            molecules = [random.choice(molecules)]
         return molecules
 
 
