@@ -321,7 +321,6 @@ class Archive:
         self.incoming_molecules = molecules
         return None
 
-
     def sample(self, size: int, sampling_method: str = "Rank") -> List[Chem.Mol]:
         """
         Returns a list of elite molecules of the requested size, sampled by the given method.
@@ -369,13 +368,9 @@ class Archive:
         Returns:
             List[Tuple[Chem.Mol, Chem.Mol]]: A list of sampled pairs of elite molecules.
         """
-        # Sample twice the number of molecules needed (because each pair has 2)
         sampled_molecules = self.sample(size * 2, sampling_method=sampling_method)
-
-        # Now group them into pairs
         sample_pairs = [(sampled_molecules[i], sampled_molecules[i + 1]) for i in range(0, len(sampled_molecules), 2)]
         return sample_pairs[:size]
-
 
 class Arbiter:
     """
